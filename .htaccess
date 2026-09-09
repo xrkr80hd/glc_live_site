@@ -4,6 +4,9 @@
 RewriteEngine On
 RewriteBase /
 
+# Serve the home-screen app manifest with the correct content type
+AddType application/manifest+json .webmanifest
+
 # Clean admin URL - /admin goes to /php/admin/login.php
 RewriteRule ^admin/?$ php/admin/login.php [L]
 RewriteRule ^admin/(.*)$ php/admin/$1 [L]
