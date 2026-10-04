@@ -1,0 +1,2 @@
+/* Trav prefers square controls. Keep clickable boxes free of pill shapes. */
+body #mainNav a, body .btn, body button, body input:not([type="radio"]), body select, body textarea, body .icon-btn, body [role="button"], body [class*="pill"], body .occ-learn, body .occ-button { border-radius: 0 !important; }

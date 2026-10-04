@@ -43,7 +43,7 @@ add_write('php/config.php',$config);
 $ht=is_file($root.'/.htaccess')?file_get_contents($root.'/.htaccess'):'';
 if (!str_contains($ht,'RewriteRule ^operation-christmas-child')) $ht="<IfModule mod_rewrite.c>\nRewriteEngine On\nRewriteRule ^operation-christmas-child/?$ operation-christmas-child.php [L]\n</IfModule>\n".$ht;
 add_write('.htaccess',$ht);
-foreach (['api/feature/index.php','assets/js/feature.js','assets/occ.css','assets/operation-christmas-child.jpg','assets/operation-christmas-child-share.png','operation-christmas-child.php','php/features.php','php/api/feature.php','php/admin/features/index.php'] as $path) {
+foreach (['api/feature/index.php','assets/js/feature.js','assets/occ.css','assets/ui-preferences.css','assets/operation-christmas-child.jpg','assets/operation-christmas-child-share.png','operation-christmas-child.php','php/features.php','php/api/feature.php','php/admin/features/index.php'] as $path) {
  $source=$repo.'/'.$path;
  if (!is_file($source)) throw new RuntimeException('Missing feature file: '.$path);
  add_write($path,file_get_contents($source));
