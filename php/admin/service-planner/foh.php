@@ -1,0 +1,6 @@
+<?php if(!isset($service,$statuses)){http_response_code(404);exit;} ?>
+<section class="station-checklist" id="foh" data-station="foh"><header class="station-heading"><div><p class="planner-eyebrow">FRONT OF HOUSE</p><h3>Sanctuary sound</h3><p>Operates the audio heard inside the sanctuary. Computer 3 handles the separate livestream mix.</p></div><?php sp_badge('foh',$statuses['foh']); ?></header>
+    <p>Follow the existing house sound procedure and share your readiness with the team.</p>
+    <a class="guide-link" href="<?=sp_e(sp_page_url($id,'sheet',$computers))?>">View songs, leaders, and service details →</a>
+    <form method="post" data-planner-form><?php sp_hidden($service,'foh_status'); ?><fieldset <?=$archived?'disabled':''?> style="border:0;padding:0"><label for="foh-readiness">House sound status</label><select id="foh-readiness" name="foh_readiness"><?php foreach(['NOT STARTED','IN PROGRESS','READY','COMPLETE'] as $value): ?><option <?=$statuses['foh']===$value?'selected':''?>><?=sp_e($value)?></option><?php endforeach; ?></select><?php if(!$archived): ?><div class="actions"><button class="btn btn-primary" type="submit">Save house sound status</button></div><?php endif; ?></fieldset><p class="save-message" role="status"></p></form>
+</section>

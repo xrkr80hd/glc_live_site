@@ -4,7 +4,7 @@ require_once __DIR__ . '/../layout.php';
 admin_require_login();
 admin_page_start('Media Management', 'media-management');
 ?>
-<link rel="stylesheet" href="/assets/admin-workspace.css?v=1">
+<link rel="stylesheet" href="/assets/admin-workspace.css?v=2">
 <div class="workspace">
     <p>Publish and manage website content using the existing tools.</p>
     <section class="workspace-section">
@@ -13,7 +13,10 @@ admin_page_start('Media Management', 'media-management');
         <?php if (admin_has_role('pastor', 'admin', 'media')): ?>
         <details class="tool-detail"><summary>Featured pages &amp; homepage feature</summary><p>Manage Operation Christmas Child, its page content, sharing graphic, organizers, contact messages, and homepage visibility.</p><a class="btn" href="/php/admin/features/index.php">Edit featured content</a></details>
         <?php endif; ?>
-        <details class="tool-detail"><summary>Youth scripture</summary><p>Edit the scripture displayed on the youth page.</p><a class="btn" href="/php/admin/youth-scripture/index.php">Edit scripture</a></details>
+        <details class="tool-detail"><summary>Youth announcements &amp; scripture</summary><p><a class="btn" href="/php/admin/announcements/index.php?category=youth">Manage youth announcements</a></p><p>Edit the scripture displayed on the youth page.</p><a class="btn" href="/php/admin/youth-scripture/index.php">Edit scripture</a></details>
+    </section>
+    <section class="workspace-section" id="ministries"><h3>Ministries</h3>
+        <?php $ministryTool=$GLOBALS['admin_media_destinations']['ministries']??null; if($ministryTool): ?><a class="btn" href="<?=htmlspecialchars($ministryTool['href'],ENT_QUOTES,'UTF-8')?>">Manage ministry content</a><?php else: ?><p>The existing backend does not yet have a ministry content editor. Ministry announcement dates and notes use the existing announcements tool.</p><a class="btn btn-secondary" href="/php/admin/announcements/index.php">Manage announcements</a><?php endif; ?>
     </section>
     <section class="workspace-section">
         <h3>Photos &amp; galleries</h3>
@@ -25,7 +28,7 @@ admin_page_start('Media Management', 'media-management');
         <details class="tool-detail"><summary>Livestream publishing settings</summary><p>Use the existing website livestream publishing tool. Sunday operating checklists are in Service Planner.</p><a class="btn" href="/php/admin/stream/index.php">Manage website livestream</a></details>
     </section>
     <?php
-    $covered = ['announcements', 'seasonal-features', 'features', 'youth-scripture', 'youth-albums', 'stream'];
+    $covered = ['ministries','announcements', 'seasonal-features', 'features', 'youth-scripture', 'youth-albums', 'stream'];
     $additional = array_filter($GLOBALS['admin_media_destinations'] ?? [], static fn($item) => !in_array($item['key'], $covered, true));
     if ($additional): ?>
     <section class="workspace-section"><h3>Other existing website content</h3>

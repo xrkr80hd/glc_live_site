@@ -9,14 +9,16 @@ $pdo = db();
 $message = trim((string) ($_GET['message'] ?? ''));
 $error = trim((string) ($_GET['error'] ?? ''));
 
+$categoryFilter=($_GET['category']??'')==='youth'?'youth':'';
 $stmt = $pdo->query("
     SELECT id, category, title, body, start_date, end_date, is_published, sort_order, created_at, updated_at
     FROM announcements
+    ".($categoryFilter?"WHERE category='youth'":"")."
     ORDER BY is_published DESC, sort_order ASC, created_at DESC, id DESC
 ");
 $announcements = $stmt->fetchAll();
 
-admin_page_start('Announcements', 'announcements');
+admin_page_start($categoryFilter?'Youth Announcements':'Announcements', 'announcements');
 ?>
 
 <?php if ($message): ?>
@@ -30,16 +32,16 @@ admin_page_start('Announcements', 'announcements');
 <section class="card announcement-card-shell">
     <div class="card-header announcement-list-header">
         <div class="announcement-page-head">
-            <h3>Manage Announcements</h3>
-            <p class="announcement-page-copy">Use the arrows to move announcements up or down. New announcements publish straight to the site, and edits save without any sort-order box.</p>
+            <h3><?=$categoryFilter?'Youth Announcements':'Manage Announcements'?></h3>
+            <p class="announcement-page-copy"><?=$categoryFilter?'Youth-page announcements. Open all announcements to change the website display order.':'Use the arrows to move announcements up or down. New announcements publish straight to the site, and edits save without any sort-order box.'?></p><?php if($categoryFilter): ?><a class="btn btn-secondary" href="index.php">View all announcements</a><?php endif; ?>
         </div>
-        <a href="new.php" class="btn btn-primary">+ New Announcement</a>
+        <a href="new.php<?=$categoryFilter?'?category=youth':''?>" class="btn btn-primary">+ New Announcement</a>
     </div>
 
     <?php if (empty($announcements)): ?>
         <div class="empty-state">
             <p>No announcements yet. Create your first one to get started.</p>
-            <a href="new.php" class="btn btn-primary">+ Create Announcement</a>
+            <a href="new.php<?=$categoryFilter?'?category=youth':''?>" class="btn btn-primary">+ Create Announcement</a>
         </div>
     <?php else: ?>
         <div class="table-wrapper">
@@ -59,8 +61,8 @@ admin_page_start('Announcements', 'announcements');
                         <?php
                         $previous = $announcements[$index - 1] ?? null;
                         $next = $announcements[$index + 1] ?? null;
-                        $canMoveUp = $previous && (int) $previous['is_published'] === (int) $ann['is_published'];
-                        $canMoveDown = $next && (int) $next['is_published'] === (int) $ann['is_published'];
+                        $canMoveUp = !$categoryFilter && $previous && (int) $previous['is_published'] === (int) $ann['is_published'];
+                        $canMoveDown = !$categoryFilter && $next && (int) $next['is_published'] === (int) $ann['is_published'];
                         $bodyPreview = trim((string) $ann['body']);
                         if (function_exists('mb_substr')) {
                             $previewText = mb_substr($bodyPreview, 0, 96);

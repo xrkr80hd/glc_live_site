@@ -5,10 +5,24 @@ function sp_json($value): string { return json_encode($value, JSON_THROW_ON_ERRO
 function sp_decode(string $value): array { $data = json_decode($value, true, 512, JSON_THROW_ON_ERROR); return is_array($data) ? $data : []; }
 function sp_e($value): string { return htmlspecialchars((string)$value, ENT_QUOTES, 'UTF-8'); }
 function sp_stations(): array {
-    return ['computer1' => ['Computer 1', 'In-house presentation · Elle-Belle'],
+    return ['computer1' => ['Computer 1', 'In-house presentation / projectors'],
         'computer2' => ['Computer 2', 'OBS / YouTube broadcast'],
         'computer3' => ['Computer 3', 'Stream audio · Flow 8 / Dante / Fender Studio'],
-        'computer4' => ['Computer 4', 'Stream presentation / cameras · Trav']];
+        'computer4' => ['Computer 4', 'Stream presentation / cameras']];
+}
+function sp_station_options(): array {
+    return ['foh'=>['Front of House','Sound heard inside the sanctuary']] + sp_stations();
+}
+function sp_service_announcements(PDO $pdo, array $service): array {
+    if (!empty($service['is_archived'])) return $service['sermon']['announcement_snapshot'] ?? [];
+    $stmt=$pdo->prepare("SELECT id,title,body,start_date,end_date FROM announcements WHERE is_published=1 AND category IN ('main','global','event') AND (end_date IS NULL OR end_date>=?) ORDER BY COALESCE(start_date,?),sort_order,id LIMIT 100");
+    $stmt->execute([$service['service_date'],$service['service_date']]);return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+function sp_announcement_dates(array $announcement): string {
+    $start=!empty($announcement['start_date'])?(new DateTimeImmutable($announcement['start_date']))->format('M j, Y'):'';
+    $end=!empty($announcement['end_date'])?(new DateTimeImmutable($announcement['end_date']))->format('M j, Y'):'';
+    if($start && $end)return $start.' – '.$end;
+    return $start?'Starts '.$start:($end?'Through '.$end:'Ongoing');
 }
 function sp_schema(PDO $pdo): void {
     $sql = file_get_contents(__DIR__ . '/../../../database/service_planner.sql');
@@ -50,9 +64,10 @@ function sp_status(array $tasks,array $completions,string $station): string {
     return $done ? 'IN PROGRESS' : 'NOT STARTED';
 }
 function sp_feed(array $service,array $tasks,array $completions): array {
-    $statuses=['sermon'=>!empty($service['sermon_ready'])?'READY':(array_filter($service['sermon'])?'IN PROGRESS':'NOT STARTED'),
+    $statuses=['sermon'=>!empty($service['sermon_ready'])?'READY':(array_filter(array_intersect_key($service['sermon'],array_flip(['title','primary_scripture','additional_scriptures','media_notes','special_media','videos','presentation_instructions'])))?'IN PROGRESS':'NOT STARTED'),
         'worship'=>!empty($service['worship_ready'])?'READY':($service['worship']?'IN PROGRESS':'NOT STARTED')];
     foreach(sp_stations() as $key=>$station)$statuses[$key]=sp_status($tasks,$completions,$key);
+    $statuses['foh']=$service['sermon']['foh_readiness']??'NOT STARTED';
     return $statuses;
 }
 function sp_sunday(string $date): string {
@@ -71,6 +86,13 @@ function sp_resources(string $links,string $image): array {
     foreach(preg_split('/\R/',trim($links)) as $url){$url=trim($url);if(!$url)continue;if(!sp_safe_url($url))throw new InvalidArgumentException('Reference links must be website URLs or internal paths.');$resources[]=['type'=>'link','url'=>$url];}
     if($image!==''){if(!sp_safe_url($image))throw new InvalidArgumentException('Reference image must be a website URL or internal path.');$resources[]=['type'=>'image','url'=>$image];}
     return $resources;
+}
+function sp_save_instructions(PDO $pdo,array $input,string $actor): void {
+    $key=sp_text($input['task_key']??'',80);$instructions=sp_text($input['instructions']??'',30000);
+    $resources=sp_resources(sp_text($input['links']??''),sp_text($input['image']??'',2000));
+    $stmt=$pdo->prepare('UPDATE service_task_definitions SET instructions=?,resources_json=?,revision=revision+1,updated_by=? WHERE task_key=? AND revision=?');
+    $stmt->execute([$instructions,sp_json($resources),$actor,$key,(int)($input['definition_revision']??-1)]);
+    if($stmt->rowCount()!==1)throw new RuntimeException('Instructions changed on another device. Reload before saving.',409);
 }
 
 // One row lock serializes edits to the shared Sunday. Optimistic revisions prevent
@@ -108,7 +130,7 @@ function sp_mutate(PDO $pdo,array $input,string $actor): void {
         }else{
             if((int)$service['revision']!==(int)($input['revision']??-1))throw new RuntimeException('Sunday information changed on another device. Reload before saving; your text has not been overwritten.',409);
             if($action==='sermon'){
-                $sermon=[];foreach(['title','primary_scripture','additional_scriptures','media_notes','special_media','videos','presentation_instructions'] as $key)$sermon[$key]=sp_text($input[$key]??'');
+                $sermon=$service['sermon'];foreach(['title','primary_scripture','additional_scriptures','media_notes','special_media','videos','presentation_instructions'] as $key)$sermon[$key]=sp_text($input[$key]??'');
                 $ready=!empty($input['ready']);
                 if($ready && (!$sermon['title'] || !$sermon['primary_scripture']))throw new InvalidArgumentException('Enter the sermon title and primary scripture before marking it ready.');
                 $stmt=$pdo->prepare('UPDATE service_plans SET sermon_json=?,sermon_ready=?,revision=revision+1,updated_by=? WHERE id=?');$stmt->execute([sp_json($sermon),(int)$ready,$actor,$service['id']]);
@@ -117,14 +139,19 @@ function sp_mutate(PDO $pdo,array $input,string $actor): void {
                 foreach($songs as $song){if(!is_array($song))throw new InvalidArgumentException('Invalid song.');$row=[];foreach(['title','key','lead','additional','notes'] as $field)$row[$field]=sp_text($song[$field]??'');if(!$row['title'])throw new InvalidArgumentException('Each song needs a title.');$clean[]=$row;}
                 if(!empty($input['ready']) && !$clean)throw new InvalidArgumentException('Add a song before marking worship ready.');
                 $stmt=$pdo->prepare('UPDATE service_plans SET worship_json=?,worship_ready=?,revision=revision+1,updated_by=? WHERE id=?');$stmt->execute([sp_json($clean),(int)!empty($input['ready']),$actor,$service['id']]);
+            }elseif($action==='announcements'){
+                $sermon=$service['sermon'];$sermon['announcement_notes']=sp_text($input['announcement_notes']??'');
+                $stmt=$pdo->prepare('UPDATE service_plans SET sermon_json=?,revision=revision+1,updated_by=? WHERE id=?');$stmt->execute([sp_json($sermon),$actor,$service['id']]);
+            }elseif($action==='foh_status'){
+                $status=sp_text($input['foh_readiness']??'',30);
+                if(!in_array($status,['NOT STARTED','IN PROGRESS','READY','COMPLETE'],true))throw new InvalidArgumentException('Choose a valid house sound status.');
+                $sermon=$service['sermon'];$sermon['foh_readiness']=$status;
+                $stmt=$pdo->prepare('UPDATE service_plans SET sermon_json=?,revision=revision+1,updated_by=? WHERE id=?');$stmt->execute([sp_json($sermon),$actor,$service['id']]);
             }elseif($action==='archive'){
-                $stmt=$pdo->prepare('UPDATE service_plans SET is_archived=1,definition_snapshot=?,revision=revision+1,updated_by=? WHERE id=?');$stmt->execute([sp_json(sp_definitions($pdo)),$actor,$service['id']]);
+                $sermon=$service['sermon'];$sermon['announcement_snapshot']=sp_service_announcements($pdo,$service);
+                $stmt=$pdo->prepare('UPDATE service_plans SET is_archived=1,sermon_json=?,definition_snapshot=?,revision=revision+1,updated_by=? WHERE id=?');$stmt->execute([sp_json($sermon),sp_json(sp_definitions($pdo)),$actor,$service['id']]);
             }elseif($action==='instructions'){
-                $key=sp_text($input['task_key']??'',80);$instructions=sp_text($input['instructions']??'',30000);
-                $resources=sp_resources(sp_text($input['links']??''),sp_text($input['image']??'',2000));
-                $stmt=$pdo->prepare('UPDATE service_task_definitions SET instructions=?,resources_json=?,revision=revision+1,updated_by=? WHERE task_key=? AND revision=?');
-                $stmt->execute([$instructions,sp_json($resources),$actor,$key,(int)($input['definition_revision']??-1)]);
-                if($stmt->rowCount()!==1)throw new RuntimeException('Instructions changed on another device. Reload before saving.',409);
+                sp_save_instructions($pdo,$input,$actor);
             }else throw new InvalidArgumentException('Unknown planner action.');
         }
         $pdo->commit();

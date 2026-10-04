@@ -2,6 +2,7 @@
 declare(strict_types=1);
 require_once __DIR__.'/../php/admin/service-planner/model.php';
 require_once __DIR__.'/../php/admin/workspace-navigation.php';
+require_once __DIR__.'/../php/admin/service-planner/presentation.php';
 function check(bool $value,string $message): void {if(!$value)throw new RuntimeException($message);}
 function rejected(callable $action,int $code=0): void {try{$action();}catch(Throwable $e){check(!$code || $e->getCode()===$code,'Wrong rejection status');return;}throw new RuntimeException('Expected rejection');}
 $dsn=getenv('PLANNER_TEST_DSN');
@@ -17,6 +18,20 @@ rejected(fn()=>sp_sunday('2026-10-05'));rejected(fn()=>sp_sunday('2026-02-30'));
 check(!sp_safe_url('javascript:alert(1)') && !sp_safe_url('//evil.test') && sp_safe_url('/uploads/reference.png'),'Safe resources');
 $groups=admin_workspace_groups([['label'=>'Main','items'=>[['key'=>'announcements','href'=>'/existing','label'=>'A'],['key'=>'visits','href'=>'/visits','label'=>'V']]]]);
 check($groups[0]['items'][0]['key']==='visits','Unrelated navigation remains');check(admin_workspace_active('seasonal-features')==='media-management','Featured pages belong to MMS');
+$originalUser=$_SESSION['admin_user']??null;
+foreach(['pastor'=>[true,true,true],'admin'=>[true,true,true],'music_minister'=>[false,true,false],
+    'media'=>[false,false,true],'sound'=>[false,false,true],'worship_team'=>[false,false,false],'youth_minister'=>[false,false,false]] as $role=>$expectedAccess){
+    $_SESSION['admin_user']=['id'=>0,'username'=>'isolated-role-check','role'=>$role];
+    check([sp_can_edit_sermon(),sp_can_edit_worship(),sp_can_operate_media()]===$expectedAccess,'Existing role compatibility: '.$role);
+    check(sp_can_open_section('sheet') && sp_can_open_section('notes'),'Every authorized team member reads the sheet');
+    check(sp_can_save_action('sermon')===$expectedAccess[0] && sp_can_save_action('worship')===$expectedAccess[1] && sp_can_save_action('task')===$expectedAccess[2],'Server action gates');
+}
+if($originalUser)$_SESSION['admin_user']=$originalUser;else unset($_SESSION['admin_user']);
+foreach(sp_stations() as $station=>$label){$groupKeys=[];foreach(sp_checklist_groups($station) as $group)$groupKeys=array_merge($groupKeys,$group['task_keys']);
+    $stationKeys=array_column(array_filter($tasks,fn($t)=>$t['station']===$station),'task_key');
+    check($groupKeys===$stationKeys,'Every station task appears once in process order');}
+check(sp_selected_computers(['computer3','computer2','computer2','invalid',[]])===['computer2','computer3'],'Multiple stations are separate, ordered and unique');
+check(sp_feed(['sermon'=>['foh_readiness'=>'READY','announcement_notes'=>'Reminder'],'sermon_ready'=>0,'worship'=>[],'worship_ready'=>0],$tasks,[])['sermon']==='NOT STARTED','FOH/announcement metadata does not start a sermon');
 $date='2099-10-04'; // Dedicated test Sunday, never a production record.
 sp_sunday($date);sp_mutate($pdo,['action'=>'create','service_date'=>$date],'test-one');sp_mutate($pdo,['action'=>'create','service_date'=>$date],'test-two');
 $stmt=$pdo->prepare('SELECT id FROM service_plans WHERE service_date=?');$stmt->execute([$date]);$id=(int)$stmt->fetchColumn();
@@ -41,13 +56,29 @@ try {
     check(sp_status($tasks,sp_completions($pdo,$id),'computer1')==='READY','Pre-service readiness');
     foreach($tasks as $task)if($task['station']==='computer2')sp_mutate($pdo,['service_id'=>$id,'revision'=>0,'action'=>'task','task_key'=>$task['task_key'],'checked'=>'1'],'test-two');
     check(sp_status($tasks,sp_completions($pdo,$id),'computer2')==='COMPLETE','Broadcast completion');
-    sp_mutate($pdo,['service_id'=>$id,'revision'=>2,'action'=>'archive'],'test-one');
+    sp_mutate($pdo,['service_id'=>$id,'revision'=>2,'action'=>'announcements','announcement_notes'=>'Saved announcement notes'],'test-one');
+    sp_mutate($pdo,['service_id'=>$id,'revision'=>3,'action'=>'foh_status','foh_readiness'=>'READY'],'test-two');
+    check(sp_service($other,$id)['sermon']['announcement_notes']==='Saved announcement notes','FOH save preserves announcement notes');
+    $announcement=$pdo->prepare('INSERT INTO announcements(category,title,body,start_date,end_date,is_published) VALUES(?,?,?,?,?,1)');
+    $announcement->execute(['main','Planner snapshot test','Original details','2099-10-04','2099-10-11']);$announcementId=(int)$pdo->lastInsertId();
+    $expired=$pdo->prepare('INSERT INTO announcements(category,title,body,start_date,end_date,is_published) VALUES(?,?,?,?,?,1)');
+    $expired->execute(['main','Planner expired test','Expired','2099-09-01','2099-09-02']);$expiredId=(int)$pdo->lastInsertId();
+    $visible=array_column(sp_service_announcements($pdo,sp_service($pdo,$id)),'id');
+    check(in_array($announcementId,$visible) && !in_array($expiredId,$visible),'Rolling announcements exclude expired dates');
+    $definition=sp_definitions($pdo)[0];
+    sp_save_instructions($pdo,['task_key'=>$definition['task_key'],'definition_revision'=>$definition['revision'],'instructions'=>'1. Updated instruction.','links'=>'/internal-reference','image'=>'/uploads/example.png'],'test-one');
+    rejected(fn()=>sp_save_instructions($pdo,['task_key'=>$definition['task_key'],'definition_revision'=>$definition['revision'],'instructions'=>'Stale replacement'],'test-two'),409);
+    sp_mutate($pdo,['service_id'=>$id,'revision'=>4,'action'=>'archive'],'test-one');
+    $pdo->prepare('UPDATE announcements SET body=? WHERE id=?')->execute(['Changed later',$announcementId]);
+    $snapshot=sp_service_announcements($pdo,sp_service($pdo,$id));
+    check(array_values(array_filter($snapshot,fn($a)=>(int)$a['id']===$announcementId))[0]['body']==='Original details','Archived announcements preserve original details');
+    $pdo->prepare('DELETE FROM announcements WHERE id IN (?,?)')->execute([$announcementId,$expiredId]);
     $archived=sp_service($pdo,$id);check((bool)$archived['is_archived'],'Archive persists');
     rejected(fn()=>sp_mutate($pdo,['service_id'=>$id,'revision'=>3,'action'=>'sermon'],'test-two'));
     $before=sp_tasks($pdo,$archived)[0]['instructions'];
     $stmt=$pdo->prepare('UPDATE service_task_definitions SET instructions=? WHERE task_key=?');$stmt->execute(['Changed later',$tasks[0]['task_key']]);
     check(sp_tasks($pdo,sp_service($pdo,$id))[0]['instructions']===$before,'Archived instructions do not change');
-    $stmt->execute([$before,$tasks[0]['task_key']]);
+    $stmt->execute([$definition['instructions'],$tasks[0]['task_key']]);
     sp_mutate($pdo,['action'=>'create','service_date'=>'2099-10-11'],'test-one');
     $next=(int)$pdo->query("SELECT id FROM service_plans WHERE service_date='2099-10-11'")->fetchColumn();
     check($next!==$id && !sp_completions($pdo,$next),'Next Sunday is independent');

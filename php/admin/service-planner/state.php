@@ -2,12 +2,14 @@
 declare(strict_types=1);
 require_once __DIR__.'/../bootstrap.php';
 require_once __DIR__.'/model.php';
+require_once __DIR__.'/access.php';
 header('Content-Type: application/json; charset=utf-8');
 header('Cache-Control: no-store');
 if (!admin_current_user()) {http_response_code(401);echo sp_json(['error'=>'Sign in again before continuing.']);exit;}
 try {
     $pdo=db();
     if ($_SERVER['REQUEST_METHOD']==='POST') {
+        if (!sp_can_save_action((string)($_POST['action']??''))) { http_response_code(403); echo sp_json(['error'=>'You do not have permission to make this change.']); exit; }
         verify_csrf($_POST['csrf_token']??'');
         sp_mutate($pdo,$_POST,(string)admin_current_user()['username']);
     } elseif ($_SERVER['REQUEST_METHOD']!=='GET') {http_response_code(405);exit;}
@@ -18,6 +20,7 @@ try {
     $pdo->commit();
     echo sp_json(['revision'=>(int)$service['revision'],'archived'=>(bool)$service['is_archived'],
         'statuses'=>sp_feed($service,$tasks,$completions),'completions'=>$completions,
+        'announcements'=>array_map(static fn($a)=>$a+['dates'=>sp_announcement_dates($a)],sp_service_announcements($pdo,$service)),
         'sermon'=>$service['sermon'],'worship'=>$service['worship'],'updated_by'=>$service['updated_by'],
         'updated_at'=>$service['updated_at']]);
 } catch(Throwable $e) {

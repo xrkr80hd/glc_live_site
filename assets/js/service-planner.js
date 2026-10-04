@@ -1,7 +1,28 @@
 (() => {
   'use strict';
+  document.addEventListener('click', event => {
+    const link = event.target.closest('a[data-guide-popup], a[data-checklist-popup]');
+    if (!link || event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+    const checklist = link.hasAttribute('data-checklist-popup');
+    const guide = window.open(link.href, checklist ? 'liberty-service-checklist' : 'liberty-service-guide', checklist ? 'popup,width=640,height=820,resizable=yes,scrollbars=yes' : 'popup,width=740,height=820,resizable=yes,scrollbars=yes');
+    if (guide) { event.preventDefault(); guide.focus(); }
+  });
   const root = document.getElementById('service-planner');
   if (!root || !Number(root.dataset.serviceId)) return;
+  root.querySelectorAll('.station-checklist .process-group').forEach(group => {
+    group.addEventListener('toggle', () => {
+      if (group.open) group.closest('.station-checklist').querySelectorAll('.process-group').forEach(other => { if (other !== group) other.open = false; });
+    });
+  });
+  if (root.dataset.popout === '1') {
+    const stations = [...root.querySelectorAll('[data-station]')];
+    function showStation(key) {
+      stations.forEach(station => { station.hidden = station.dataset.station !== key; });
+      root.querySelectorAll('[data-station-switch]').forEach(link => { link.setAttribute('aria-current', link.dataset.stationSwitch === key ? 'page' : 'false'); });
+    }
+    root.querySelectorAll('[data-station-switch]').forEach(link => link.addEventListener('click', event => { event.preventDefault(); showStation(link.dataset.stationSwitch); }));
+    if (stations.length > 1) showStation(stations[0].dataset.station);
+  }
   const endpoint = '/php/admin/service-planner/state.php';
   const sync = document.getElementById('sync-message');
   let pending = 0;
@@ -41,19 +62,65 @@
       const state = data.completions[input.dataset.taskKey];
       input.checked = Boolean(state && Number(state.is_complete));
       input.dataset.revision = String(state ? state.revision : 0);
+      input.closest('.task-row')?.classList.toggle('is-complete', input.checked);
       if (data.archived) input.disabled = true;
     });
     root.querySelectorAll('[data-task-credit]').forEach(credit => {
       const state = data.completions[credit.dataset.taskCredit];
       credit.textContent = state ? `Updated by ${state.updated_by} · ${state.updated_at}` : '';
     });
+    root.querySelectorAll('[data-progress-station]').forEach(progress => {
+      const station = progress.dataset.progressStation;
+      const done = Object.entries(data.completions).filter(([key, value]) => key.startsWith(station + '_') && Number(value.is_complete)).length;
+      const total = Number(progress.dataset.progressTotal);
+      progress.textContent = `${done} of ${total} tasks completed`;
+    });
+    root.querySelectorAll('[data-process-group]').forEach(group => {
+      const inputs = [...group.querySelectorAll('[data-task-key]')];
+      group.querySelector('[data-group-progress]').textContent = `${inputs.filter(input => input.checked).length} of ${inputs.length} tasks completed`;
+    });
+    root.querySelectorAll('[data-media-ready-count]').forEach(count => {
+      const ready = ['foh','computer1','computer2','computer3','computer4'].filter(key => ['READY','COMPLETE'].includes(data.statuses[key])).length;
+      count.textContent = `${ready} of 5 stations ready`;
+    });
+    const announcements = root.querySelector('[data-sheet-announcements]');
+    if (announcements && data.announcements) {
+      announcements.replaceChildren();
+      if (!data.announcements.length) { const empty = document.createElement('p'); empty.textContent = 'No current or upcoming announcements.'; announcements.append(empty); }
+      data.announcements.forEach(item => {
+        const article = document.createElement('article'); article.className = 'sheet-announcement';
+        const title = document.createElement('h4'); title.textContent = item.title;
+        const dates = document.createElement('p'); dates.textContent = item.dates;
+        const body = document.createElement('div'); body.className = 'reference'; body.textContent = item.body;
+        article.append(title, dates, body); announcements.append(article);
+      });
+    }
+    root.querySelectorAll('[data-sermon-field]').forEach(field => {
+      field.textContent = data.sermon[field.dataset.sermonField] || 'Not entered.';
+    });
+    const songsList = root.querySelector('[data-sheet-songs]');
+    if (songsList) {
+      songsList.replaceChildren();
+      data.worship.forEach(song => {
+        const row = document.createElement('li');
+        const title = document.createElement('strong'); title.textContent = song.title;
+        const details = document.createElement('p');
+        details.textContent = [`Key: ${song.key || 'Not entered'}`, `Lead: ${song.lead || 'Not entered'}`, song.additional ? `Additional: ${song.additional}` : ''].filter(Boolean).join(' · ');
+        row.append(title, details);
+        if (song.notes) { const notes = document.createElement('div'); notes.className = 'reference'; notes.textContent = song.notes; row.append(notes); }
+        songsList.append(row);
+      });
+      root.querySelector('[data-empty-songs]').hidden = data.worship.length > 0;
+    }
+    const ready = root.querySelector('[data-sheet-readiness]');
+    if (ready) ready.textContent = Object.values(data.statuses).every(status => ['READY', 'COMPLETE'].includes(status)) ? 'The service plan is ready.' : 'This service is still being prepared.';
     const title = root.querySelector('[data-feed-sermon]');
     if (title) title.textContent = data.sermon.title || 'Title, scriptures, media, and presentation instructions';
     const scripture = root.querySelector('[data-feed-scripture]');
     if (scripture) scripture.textContent = data.sermon.primary_scripture || 'Not entered';
     const worship = root.querySelector('[data-feed-worship]');
     if (worship) worship.textContent = `${data.worship.length} songs · keys · leaders · notes`;
-    if (savedInformation) {
+    if (savedInformation || ['sheet', 'notes'].includes(root.dataset.section)) {
       root.dataset.revision = String(data.revision);
       root.querySelectorAll('input[name="revision"]').forEach(input => { input.value = data.revision; });
     } else if (Number(root.dataset.revision) !== data.revision) {
@@ -73,7 +140,7 @@
       const data = await request();
       if (pending || started !== epoch) return;
       apply(data);
-      message(`Up to date · checked ${new Date().toLocaleTimeString()}`);
+      message('Shared changes are up to date.');
     } catch (error) { message(`${error.message} Updates will retry.`, true); }
     finally { polling = false; }
   }
@@ -112,8 +179,10 @@
     [...songs.children].forEach((song, index) => {
       song.querySelector('.song-number').textContent = String(index + 1);
       song.querySelectorAll('[data-song-field]').forEach(input => { input.name = `songs[${index}][${input.dataset.songField}]`; });
-      song.querySelector('[data-song-action="up"]').disabled = index === 0;
-      song.querySelector('[data-song-action="down"]').disabled = index === songs.children.length - 1;
+      const up = song.querySelector('[data-song-action="up"]');
+      const down = song.querySelector('[data-song-action="down"]');
+      if (up) up.disabled = index === 0;
+      if (down) down.disabled = index === songs.children.length - 1;
     });
   }
   const add = document.getElementById('add-song');

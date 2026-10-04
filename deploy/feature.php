@@ -34,7 +34,7 @@ foreach (['admin_page_start', 'admin_page_end', 'admin_db_or_setup_page'] as $he
  }
 }
 $bootstrap = file_get_contents($root.'/php/admin/bootstrap.php');
-foreach (['admin_require_login', 'admin_current_user', 'admin_has_role', 'admin_redirect'] as $helper) {
+foreach (['admin_require_login', 'admin_current_user', 'admin_has_role', 'admin_can_manage_users', 'admin_redirect'] as $helper) {
  if (!preg_match('/function\s+'.preg_quote($helper, '/').'\s*\(/', $bootstrap)) {
   throw new RuntimeException('Live authentication helpers differ from the inspected backend. No live files changed.');
  }
@@ -57,7 +57,7 @@ if (!str_contains($layout, 'admin_workspace_groups($resourceGroups)')) {
  if ($count !== 1) throw new RuntimeException('Could not integrate admin navigation. No live files changed.');
 }
 if (!str_contains($layout, '/assets/admin-workspace.css')) {
- $layout = str_replace('</head>', '<link rel="stylesheet" href="/assets/admin-workspace.css?v=1">'."\n</head>", $layout);
+ $layout = str_replace('</head>', '<link rel="stylesheet" href="/assets/admin-workspace.css?v=2">'."\n</head>", $layout);
 }
 if (!str_contains($layout, 'admin_workspace_navigation($active)')) {
  $menuLoop = '<?php foreach ($resourceGroups as $group): ?>';
@@ -65,11 +65,12 @@ if (!str_contains($layout, 'admin_workspace_navigation($active)')) {
  $layout = str_replace($menuLoop, '<?php admin_workspace_navigation($active); ?>'."\n".$menuLoop, $layout);
 }
 $layout = str_replace('<a class="resource-link" href="/php/admin/features/index.php">Feature</a>', '', $layout);
+$layout=str_replace('/assets/admin-workspace.css?v=1','/assets/admin-workspace.css?v=2',$layout);
 add_write('php/admin/layout.php',$layout);
 $ht=is_file($root.'/.htaccess')?file_get_contents($root.'/.htaccess'):'';
 if (!str_contains($ht,'RewriteRule ^operation-christmas-child')) $ht="<IfModule mod_rewrite.c>\nRewriteEngine On\nRewriteRule ^operation-christmas-child/?$ operation-christmas-child.php [L]\n</IfModule>\n".$ht;
 add_write('.htaccess',$ht);
-foreach (['api/feature/index.php','assets/js/feature.js','assets/occ.css','assets/ui-preferences.css','assets/operation-christmas-child.jpg','assets/operation-christmas-child-share.png','operation-christmas-child.php','php/features.php','php/api/feature.php','php/admin/features/index.php','php/admin/workspace-navigation.php','php/admin/media/index.php','php/admin/service-planner/model.php','php/admin/service-planner/index.php','php/admin/service-planner/state.php','php/admin/service-planner/default-tasks.json','database/service_planner.sql','assets/admin-workspace.css','assets/js/service-planner.js'] as $path) {
+foreach (['api/feature/index.php','assets/js/feature.js','assets/occ.css','assets/ui-preferences.css','assets/operation-christmas-child.jpg','assets/operation-christmas-child-share.png','operation-christmas-child.php','php/features.php','php/api/feature.php','php/admin/features/index.php','php/admin/service-planner/access.php','php/admin/workspace-navigation.php','php/admin/media/index.php','php/admin/service-planner/presentation.php','php/admin/service-planner/checklists.php','php/admin/service-planner/foh.php','php/admin/service-planner/guide.php','php/admin/service-planner/service-sheet.php','php/admin/service-planner/model.php','php/admin/service-planner/index.php','php/admin/service-planner/state.php','php/admin/service-planner/default-tasks.json','database/service_planner.sql','assets/admin-workspace.css','assets/js/service-planner.js','assets/js/service-guide.js','php/admin/announcements/index.php','php/admin/announcements/new.php'] as $path) {
  $source=$repo.'/'.$path;
  if (!is_file($source)) throw new RuntimeException('Missing feature file: '.$path);
  add_write($path,file_get_contents($source));

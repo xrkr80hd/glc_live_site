@@ -34,3 +34,147 @@
 .workspace .service-history li {border-bottom:1px solid #526074}
 .admin-shell button,.admin-shell input,.admin-shell select,.admin-shell textarea,.admin-shell .resource-link,.admin-shell .btn,.admin-shell .admin-top-link,.admin-shell .resource-nav-home {border-radius:3px!important}
 @media(max-width:700px){.workspace .form-pair{grid-template-columns:1fr;gap:0}.workspace .song-head{align-items:flex-start;flex-direction:column}.workspace .feed-link{gap:.6rem}.workspace .task .howto{margin-left:0}.workspace .actions{gap:.4rem}.workspace{font-size:16px}.admin-content{min-width:0}}
+
+/* Same palette; clear boundaries between doing, reading, and learning. */
+.planner-page h3,.guide-workspace h2 {line-height:1.3}
+.planner-eyebrow {font-size:.75rem;font-weight:700;letter-spacing:.09em;color:var(--admin-muted,#b6c5d7);margin:0 0 .5rem}
+.planner-service-heading,.station-heading,.guide-header {display:flex;justify-content:space-between;align-items:flex-start;gap:1rem}
+.planner-service-heading h3,.station-heading h3 {margin:0 0 .5rem}
+.planner-breadcrumb {display:flex;flex-wrap:wrap;gap:.6rem;font-size:.85rem;margin:.8rem 0 1.5rem}
+.planner-breadcrumb a,.guide-link,.station-jumps a,.planner-section-tabs a {color:var(--admin-text,#e7edf5);text-decoration:underline;text-underline-offset:4px}
+.planner-sync {font-size:.8rem}
+.planner-area-link {display:flex;align-items:center;justify-content:space-between;gap:1rem;min-height:78px;padding:1rem 0;border-bottom:1px solid #526074;color:inherit;text-decoration:none}
+.planner-area-link strong {font-size:1.1rem}
+.planner-area-link small {display:block;font-weight:400;margin-top:.4rem;line-height:1.6;color:var(--admin-muted,#b6c5d7)}
+.planner-area-link:hover {background:var(--admin-accent-soft,rgba(15,96,72,.16))}
+.planner-section-tabs {display:flex;gap:1rem;flex-wrap:wrap;margin:1rem 0 1.5rem;padding-bottom:.8rem;border-bottom:1px solid #526074}
+.planner-section-tabs [aria-current=page] {font-weight:700;text-decoration:none;border-bottom:3px solid var(--admin-accent,#0f6048);padding-bottom:.3rem}
+.station-picker fieldset {border:0;padding:0;margin:0 0 1rem}
+.station-picker legend {font-weight:700;font-size:1.1rem}
+.station-picker label {display:flex;align-items:center;gap:1rem;padding:.9rem .5rem;border:1px solid #526074;min-height:66px}
+.station-picker input[type=checkbox] {height:26px;width:26px;accent-color:#59b48a;flex-shrink:0}
+.station-picker small {display:block;margin-top:.25rem;font-size:.85rem}
+.station-jumps {display:flex;gap:1rem;flex-wrap:wrap;margin:1rem 0}
+.station-jumps a {min-height:44px;display:flex;align-items:center}
+.station-checklist {border:1px solid #526074;border-top:4px solid var(--admin-accent,#0f6048);border-radius:3px;padding:1.2rem;margin:1.8rem 0;scroll-margin-top:1rem}
+.station-heading p {line-height:1.6;margin:.3rem 0;color:var(--admin-muted,#b6c5d7)}
+.station-progress {font-size:.85rem;color:var(--admin-muted,#b6c5d7)}
+.checklist-phase {font-size:.8rem;text-transform:uppercase;letter-spacing:.06em;margin:1.5rem 0 .5rem;padding:.7rem 0;border-bottom:1px solid #526074}
+.numbered-checklist {padding:0;list-style:none;margin:0}
+.task-row {display:grid;grid-template-columns:1fr auto;gap:.6rem;align-items:center;padding:.6rem 0;border-bottom:1px solid rgba(110,125,145,.35)}
+.task-row .task-label {display:grid;grid-template-columns:26px 30px 1fr;align-items:center;gap:.6rem;margin:0;min-height:52px;cursor:pointer}
+.task-row input[type=checkbox] {height:26px;width:26px;accent-color:#59b48a}
+.task-number {color:var(--admin-muted,#b6c5d7);text-align:center;font-weight:700;font-size:.95rem}
+.task-title {line-height:1.5;font-weight:500}
+.task-row.is-complete .task-title {color:var(--admin-muted,#b6c5d7)}
+.task-row .guide-link {font-size:.8rem;min-height:44px;display:flex;align-items:center;white-space:nowrap}
+.task-screen-reader {position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.sheet-readiness-list {margin:0}
+.sheet-readiness-list>div {display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.8rem 0;border-bottom:1px solid #526074}
+.sheet-readiness-list dt {font-weight:600;min-width:0}
+.sheet-readiness-list dt small,.sheet-readiness-list dt [data-progress-station] {display:block;font-size:.8rem;font-weight:400;line-height:1.6;margin-top:.3rem;color:var(--admin-muted,#b6c5d7)}
+.sheet-readiness-list dd {margin:0}
+.sheet-song-list {padding-left:1.6rem}
+.sheet-song-list li {padding:.7rem .3rem;border-bottom:1px solid #526074;line-height:1.6}
+.sheet-song-list p {margin:.3rem 0;font-size:.9rem}
+.sheet-announcement {padding:.7rem 0;border-bottom:1px solid #526074}
+.sheet-announcement h4 {margin:.4rem 0}
+.planner-station-menu {margin:.2rem 0}
+.planner-station-menu summary {display:list-item;margin-left:1rem}
+.planner-station-menu form {padding:.2rem .6rem .8rem 1rem}
+.planner-station-menu p {font-size:.8rem;line-height:1.6;margin:.3rem 0 .6rem;color:var(--admin-muted,#b6c5d7)}
+.planner-station-menu label {display:flex;align-items:center;gap:.6rem;min-height:44px;margin:.2rem 0;color:var(--admin-text,#e7edf5);font-size:.82rem;cursor:pointer}
+.planner-station-menu input[type=checkbox] {width:21px;height:21px;accent-color:#59b48a}
+.planner-station-menu button {font-size:.8rem;width:100%;margin-top:.6rem;min-height:44px;border-radius:3px!important}
+.guide-body {padding:1.5rem;background:var(--admin-bg,#171719)}
+.guide-workspace {max-width:780px;margin:0 auto;color:var(--admin-text,#e7edf5)}
+.guide-header h1 {font-size:1.25rem;margin:0}
+.guide-intro {line-height:1.6;color:var(--admin-muted,#b6c5d7)}
+.guide-steps {padding-left:1.8rem;margin:1.5rem 0}
+.guide-steps li {padding:.8rem .4rem .8rem .6rem;font-size:1.05rem;line-height:1.8;border-bottom:1px solid #526074}
+.guide-steps li::marker {font-weight:700;color:var(--admin-accent-strong,#59b48a)}
+.guide-notes {border-left:3px solid var(--admin-accent,#0f6048);padding:.6rem 1rem;margin:1rem 0}
+.guide-step-navigation {display:flex;flex-wrap:wrap;justify-content:space-between;gap:.7rem;margin:2rem 0 1rem}
+.guide-edit-link {margin:2rem 0 1rem;font-size:.8rem}
+.guide-footer {border-top:1px solid #526074;padding:1.5rem 0;margin-top:2rem}
+.manual-task-list {padding-left:1.8rem}
+.manual-task-list li {padding:.5rem 0;line-height:1.6}
+.manual-task-list a {display:block;padding:.4rem;color:var(--admin-text,#e7edf5)}
+.process-group {border:1px solid #526074;border-radius:3px;margin:.8rem 0}
+.process-group>summary {display:grid;grid-template-columns:32px 1fr 20px;align-items:center;gap:.8rem;cursor:pointer;padding:.9rem;min-height:64px;list-style:none}
+.process-group>summary::-webkit-details-marker {display:none}
+.process-group>summary small {display:block;font-size:.8rem;line-height:1.6;margin-top:.25rem;color:var(--admin-muted,#b6c5d7)}
+.process-number {font-size:1.2rem;font-weight:700;text-align:center;color:var(--admin-accent-strong,#59b48a)}
+.process-group[open]>summary {border-bottom:1px solid #526074;background:var(--admin-accent-soft,rgba(15,96,72,.16))}
+.process-group[open] .process-chevron {transform:rotate(180deg)}
+.process-group .numbered-checklist {padding:0 .9rem .4rem}
+.process-group .task-row:last-child {border-bottom:0}
+.manual-process {margin:1.5rem 0;border-top:1px solid #526074;padding-top:.5rem}
+@media(max-width:700px){.station-checklist{padding:.85rem}.station-heading{flex-direction:column;gap:.4rem}.task-row{grid-template-columns:1fr;gap:0}.task-row .guide-link{margin-left:74px;min-height:44px}.planner-area-link{align-items:flex-start}.guide-body{padding:1rem}.sheet-readiness-list>div{gap:.5rem}.sheet-readiness-list dt{font-size:.9rem}}
+/* Keep the existing backend compact at every screen size. */
+.admin-shell .resource-nav-home,.admin-shell .nav-group,.admin-shell .nav-group-toggle {border-radius:3px!important}
+.checklist-window .workspace {max-width:740px;margin:auto}
+.station-jumps [aria-current=page] {font-weight:700;text-decoration:none;border-bottom:3px solid var(--admin-accent,#0f6048)}
+.station-checklist[hidden] {display:none}
+.planner-page .task-copy {min-width:0;overflow-wrap:anywhere}
+@media(max-width:700px){
+ .desktop-popout{display:none!important}
+ body.admin-dark .admin-topbar{gap:.5rem;padding:.6rem .7rem}
+ .admin-topbar h1{font-size:1.15rem}
+ .admin-topbar p{font-size:.75rem;margin:.3rem 0}
+ .admin-top-actions{gap:.35rem;flex-wrap:wrap}
+ .admin-top-link{font-size:.75rem;padding:.45rem;min-height:40px}
+ .admin-manager-panel{padding:.7rem}
+ .admin-content-head{margin-bottom:1rem}
+ .admin-content-head h2{font-size:1.25rem}
+ .admin-content-head p{font-size:.85rem}
+ .workspace-section{margin:1rem 0;padding-top:.8rem}
+ .planner-service-heading h3{font-size:1.25rem}
+ .process-group>summary{gap:.45rem;padding:.7rem;grid-template-columns:26px 1fr 16px}
+ .process-group .numbered-checklist{padding:0 .6rem .4rem}
+ .task-row .task-label{grid-template-columns:26px 24px 1fr;gap:.45rem}
+ .task-row .guide-link{margin-left:64px}
+ .guide-workspace figure{margin:1rem 0}
+ .guide-steps{padding-left:1.4rem}
+ .guide-steps li{font-size:1rem;line-height:1.6}
+}
+/* Override the legacy header rules only inside the planner. */
+.planner-page .station-heading,.planner-page .planner-service-heading {display:flex;justify-content:space-between;align-items:flex-start;margin:0;padding:0}
+body.admin-dark:has(.planner-page) .admin-content-head {margin-bottom:0}
+body.admin-dark:has(.planner-page) .admin-content-head p {display:none}
+.planner-page .planner-breadcrumb {margin:.4rem 0 1rem}
+@media(min-width:1100px){
+ body.admin-dark:has(.planner-page):not(.checklist-window) .admin-manager-panel{margin-left:296px}
+ body.admin-dark:has(.planner-page):not(.checklist-window) .resource-nav{left:20px;top:135px;bottom:20px;width:280px;transform:none;border-radius:3px}
+ body.admin-dark:has(.planner-page):not(.checklist-window) .resource-nav-launcher,
+ body.admin-dark:has(.planner-page):not(.checklist-window) .resource-nav-backdrop{display:none}
+}
+@media(max-width:700px){
+ body.admin-dark:has(.planner-page) .admin-topbar {padding:.55rem .6rem;gap:.25rem;margin-bottom:.6rem}
+ body.admin-dark:has(.planner-page) .admin-topbar .admin-top-link{font-size:.75rem;padding:.35rem .3rem;min-height:32px}
+ body.admin-dark:has(.planner-page) .admin-content{gap:.6rem}
+ body.admin-dark:has(.planner-page) .admin-content-head{margin:0}
+ .planner-page .station-heading{flex-direction:column;gap:.35rem}
+ .planner-page .workspace-section{margin:.7rem 0;padding-top:.7rem}
+ .planner-page .planner-breadcrumb{margin:.3rem 0 .6rem}
+ .planner-page .planner-sync{margin:.4rem 0;min-height:20px}
+ .planner-page .station-checklist{margin:1rem 0}
+ .planner-page .workspace-section>p:not(.planner-eyebrow){font-size:.9rem;line-height:1.5}
+ .planner-page .actions .btn{font-size:.85rem;padding:.5rem .7rem}
+}
+.admin-shell .resource-nav{box-sizing:border-box}
+.planner-station-menu label{margin:0;padding:.3rem 0;line-height:1.4}
+.planner-station-menu input[type=checkbox]{margin:0;padding:0}
+.planner-page .station-heading,.planner-page .planner-service-heading{flex-direction:row}
+@media(max-width:700px){.planner-page .station-heading{flex-direction:column}}
+.admin-shell .planner-station-menu form,.planner-page form,.guide-workspace form{display:block}
+.admin-shell .planner-station-menu label{box-sizing:border-box;margin:0;min-height:48px;padding:.3rem 0}
+.planner-page .station-jumps{margin:.6rem 0}
+.checklist-window .planner-breadcrumb,
+.checklist-window .checklist-controls>h3,
+.checklist-window .checklist-controls>p,
+.checklist-window .checklist-reference-link{display:none}
+.checklist-window .checklist-controls{border:0;padding:0;margin:.5rem 0}
+.checklist-window .planner-section-tabs{margin:.6rem 0 1rem}
+.checklist-window .planner-service-heading h3{font-size:1.1rem}
+.checklist-window .station-checklist{margin:1rem 0;padding:.9rem}

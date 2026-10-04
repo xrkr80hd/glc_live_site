@@ -70,7 +70,7 @@ admin_page_start('New Announcement', 'announcements');
                     <label for="category">Show On</label>
                     <select id="category" name="category" required>
                         <option value="main">Main (Homepage)</option>
-                        <option value="youth">Youth Page</option>
+                        <option value="youth" <?=($_GET['category']??'')==='youth'?'selected':''?>>Youth Page</option>
                         <option value="event">Event</option>
                         <option value="global">Global (All Pages)</option>
                     </select>
