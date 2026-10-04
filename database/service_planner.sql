@@ -1,0 +1,40 @@
+-- Additive planner storage. No changes to users, roles, existing media or songs.
+CREATE TABLE IF NOT EXISTS service_plans (
+ id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+ service_date DATE NOT NULL UNIQUE,
+ sermon_json LONGTEXT NOT NULL,
+ worship_json LONGTEXT NOT NULL,
+ definition_snapshot LONGTEXT NOT NULL,
+ sermon_ready TINYINT(1) NOT NULL DEFAULT 0,
+ worship_ready TINYINT(1) NOT NULL DEFAULT 0,
+ is_archived TINYINT(1) NOT NULL DEFAULT 0,
+ revision INT UNSIGNED NOT NULL DEFAULT 0,
+ created_by VARCHAR(255) NOT NULL,
+ updated_by VARCHAR(255) NOT NULL,
+ created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+ updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS service_task_definitions (
+ task_key VARCHAR(80) PRIMARY KEY,
+ station VARCHAR(30) NOT NULL,
+ phase VARCHAR(20) NOT NULL,
+ sort_order INT NOT NULL,
+ title VARCHAR(255) NOT NULL,
+ instructions TEXT NOT NULL,
+ resources_json TEXT NOT NULL,
+ revision INT UNSIGNED NOT NULL DEFAULT 0,
+ updated_by VARCHAR(255) NULL,
+ updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS service_task_completions (
+ service_id INT UNSIGNED NOT NULL,
+ task_key VARCHAR(80) NOT NULL,
+ is_complete TINYINT(1) NOT NULL DEFAULT 0,
+ revision INT UNSIGNED NOT NULL DEFAULT 0,
+ updated_by VARCHAR(255) NOT NULL,
+ updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+ PRIMARY KEY(service_id, task_key),
+ CONSTRAINT fk_planner_completion_service FOREIGN KEY(service_id) REFERENCES service_plans(id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

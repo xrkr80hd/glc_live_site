@@ -109,6 +109,9 @@ function admin_page_start(string $title, string $active = ''): void
             ],
         ],
     ];
+    require_once __DIR__ . '/workspace-navigation.php';
+    $resourceGroups = admin_workspace_groups($resourceGroups);
+    $active = admin_workspace_active($active);
     ?>
     <!DOCTYPE html>
     <html lang="en">
@@ -119,6 +122,7 @@ function admin_page_start(string $title, string $active = ''): void
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="/assets/admin-workspace.css?v=1">
         <link rel="stylesheet" href="/assets/admin.css?v=<?= rawurlencode($cssVersion) ?>">
     </head>
     <body class="admin-dark">
@@ -144,6 +148,7 @@ function admin_page_start(string $title, string $active = ''): void
 
             <aside id="adminResourceMenu" class="resource-nav" aria-label="Admin resources">
                 <a href="/php/admin/dashboard.php" class="resource-nav-home <?= $active === 'dashboard' ? 'active' : '' ?>">Dashboard</a>
+                <?php admin_workspace_navigation($active); ?>
                 <?php foreach ($resourceGroups as $group): ?>
                     <section class="nav-group">
                         <button type="button" class="nav-group-toggle" aria-expanded="true">

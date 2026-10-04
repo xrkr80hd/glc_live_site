@@ -1,0 +1,614 @@
+[
+  {
+    "task_key": "computer1_pre_01",
+    "station": "computer1",
+    "phase": "pre",
+    "sort_order": 1,
+    "title": "Open EasyWorship",
+    "instructions": "1. At Computer 1, open the existing EasyWorship application.\n2. Select the saved service for the Sunday date shown in the Main Service Feed.\n3. Confirm the date before editing. Use the usual church service file and settings.",
+    "resources": []
+  },
+  {
+    "task_key": "computer1_pre_02",
+    "station": "computer1",
+    "phase": "pre",
+    "sort_order": 2,
+    "title": "Open this week’s Main Service Feed",
+    "instructions": "1. Open Service Planner in the church admin.\n2. Select this Sunday by its date and week number.\n3. Keep the sermon and worship references available while building the service.",
+    "resources": []
+  },
+  {
+    "task_key": "computer1_pre_03",
+    "station": "computer1",
+    "phase": "pre",
+    "sort_order": 3,
+    "title": "Verify sermon title",
+    "instructions": "1. Read the sermon title in this Sunday’s Sermon section.\n2. Compare it with the service presentation or broadcast title at your station.\n3. Resolve any difference with Pastor Andrew before proceeding.",
+    "resources": []
+  },
+  {
+    "task_key": "computer1_pre_04",
+    "station": "computer1",
+    "phase": "pre",
+    "sort_order": 4,
+    "title": "Verify sermon scriptures",
+    "instructions": "1. Read the primary and additional scriptures in the shared Sermon section.\n2. Compare the references and order with the in-house service.\n3. Confirm any missing passages or translation questions with Pastor Andrew.",
+    "resources": []
+  },
+  {
+    "task_key": "computer1_pre_05",
+    "station": "computer1",
+    "phase": "pre",
+    "sort_order": 5,
+    "title": "Verify worship song list",
+    "instructions": "1. Open the Worship section of this Sunday’s feed.\n2. Compare the song order, titles, keys, and leaders with EasyWorship.\n3. Ask Erin about any unresolved difference.",
+    "resources": []
+  },
+  {
+    "task_key": "computer1_pre_06",
+    "station": "computer1",
+    "phase": "pre",
+    "sort_order": 6,
+    "title": "Build worship songs and lyrics",
+    "instructions": "1. Use the shared worship plan for song order.\n2. Add the songs using the existing EasyWorship library and usual church process.\n3. Review the lyric sequence against Erin’s notes. Exact local library steps should be added by the regular operator.",
+    "resources": []
+  },
+  {
+    "task_key": "computer1_pre_07",
+    "station": "computer1",
+    "phase": "pre",
+    "sort_order": 7,
+    "title": "Add scriptures",
+    "instructions": "1. Read the primary and additional scripture references in the shared Sermon section.\n2. Add them to the weekly EasyWorship service using the existing Bible/scripture tool and church translation.\n3. Preview each passage, confirm order, and ask Pastor Andrew about missing references or translation questions.",
+    "resources": []
+  },
+  {
+    "task_key": "computer1_pre_08",
+    "station": "computer1",
+    "phase": "pre",
+    "sort_order": 8,
+    "title": "Add sermon graphic",
+    "instructions": "1. Locate this Sunday’s approved sermon graphic using the existing media storage location.\n2. Add it to the weekly EasyWorship service using the normal church process.\n3. Preview it on the in-house output and confirm it matches the sermon title. Add the exact storage link here.",
+    "resources": []
+  },
+  {
+    "task_key": "computer1_pre_09",
+    "station": "computer1",
+    "phase": "pre",
+    "sort_order": 9,
+    "title": "Add sermon slides",
+    "instructions": "1. Read Pastor Andrew’s presentation instructions and media notes.\n2. Add the supplied sermon slides to the weekly EasyWorship service using the normal process.\n3. Preview their order and confirm any timing or special requirements with Pastor Andrew.",
+    "resources": []
+  },
+  {
+    "task_key": "computer1_pre_10",
+    "station": "computer1",
+    "phase": "pre",
+    "sort_order": 10,
+    "title": "Add announcements/media",
+    "instructions": "1. Review the current approved announcements and media in Media Management and the usual Sunday resources.\n2. Add the applicable items to the weekly EasyWorship service using the existing workflow.\n3. Preview images and video playback, and confirm their service positions with the team.",
+    "resources": []
+  },
+  {
+    "task_key": "computer1_pre_11",
+    "station": "computer1",
+    "phase": "pre",
+    "sort_order": 11,
+    "title": "Verify service order",
+    "instructions": "1. Compare the built EasyWorship service with the shared worship order and sermon instructions.\n2. Check announcements, songs, scriptures, sermon slides, and special media in the usual Sunday sequence.\n3. Resolve changes with the team before saving.",
+    "resources": []
+  },
+  {
+    "task_key": "computer1_pre_12",
+    "station": "computer1",
+    "phase": "pre",
+    "sort_order": 12,
+    "title": "Verify projector output",
+    "instructions": "1. Use the usual projector startup procedure.\n2. Preview a test slide on the sanctuary screens.\n3. Confirm text is readable and the intended output is visible. If the output differs, ask the regular operator before changing display settings.",
+    "resources": []
+  },
+  {
+    "task_key": "computer1_pre_13",
+    "station": "computer1",
+    "phase": "pre",
+    "sort_order": 13,
+    "title": "Save weekly EasyWorship service",
+    "instructions": "1. Save this Sunday’s built service using the existing church naming and storage procedure.\n2. Confirm the Sunday date and week label.\n3. Confirm the saved file is available through the current handoff process for Computer 4. Add the exact filename/location convention here.",
+    "resources": []
+  },
+  {
+    "task_key": "computer1_pre_14",
+    "station": "computer1",
+    "phase": "pre",
+    "sort_order": 14,
+    "title": "Mark Computer 1 READY",
+    "instructions": "1. Complete every preceding task in this phase.\n2. Resolve any outstanding station issue with the team.\n3. Check this task to update the shared readiness display. This does not control any equipment.",
+    "resources": []
+  },
+  {
+    "task_key": "computer2_pre_01",
+    "station": "computer2",
+    "phase": "pre",
+    "sort_order": 1,
+    "title": "Open Main Service Feed",
+    "instructions": "1. Open Service Planner in the church admin.\n2. Select the current Sunday by date and week number.\n3. Review sermon, worship, and station readiness before continuing.",
+    "resources": []
+  },
+  {
+    "task_key": "computer2_pre_02",
+    "station": "computer2",
+    "phase": "pre",
+    "sort_order": 2,
+    "title": "Verify sermon title",
+    "instructions": "1. Read the sermon title in this Sunday’s Sermon section.\n2. Compare it with the service presentation or broadcast title at your station.\n3. Resolve any difference with Pastor Andrew before proceeding.",
+    "resources": []
+  },
+  {
+    "task_key": "computer2_pre_03",
+    "station": "computer2",
+    "phase": "pre",
+    "sort_order": 3,
+    "title": "Verify scriptures",
+    "instructions": "1. Read the primary and additional scriptures in the shared Sermon section.\n2. Compare them with the content at this station.\n3. Confirm discrepancies with Pastor Andrew or the current presentation operator.",
+    "resources": []
+  },
+  {
+    "task_key": "computer2_pre_04",
+    "station": "computer2",
+    "phase": "pre",
+    "sort_order": 4,
+    "title": "Open YouTube",
+    "instructions": "1. At Computer 2, open YouTube using the existing church account and normal sign-in process.\n2. Open the usual live-broadcast management view.\n3. Confirm the church channel before creating or editing a broadcast. Never store account passwords in these instructions.",
+    "resources": []
+  },
+  {
+    "task_key": "computer2_pre_05",
+    "station": "computer2",
+    "phase": "pre",
+    "sort_order": 5,
+    "title": "Create live service",
+    "instructions": "1. In the church’s existing YouTube account, use the normal live-service creation procedure.\n2. Use this Sunday’s sermon title and notes as the shared reference.\n3. Confirm the Sunday date, audience visibility, and normal church settings. This checklist does not create or control the broadcast.",
+    "resources": []
+  },
+  {
+    "task_key": "computer2_pre_06",
+    "station": "computer2",
+    "phase": "pre",
+    "sort_order": 6,
+    "title": "Enter service information",
+    "instructions": "1. Read the shared sermon title, scripture references, and any broadcast notes.\n2. Enter the required details into the existing YouTube live service using the normal church format.\n3. Verify the Sunday date and service details before continuing.",
+    "resources": []
+  },
+  {
+    "task_key": "computer2_pre_07",
+    "station": "computer2",
+    "phase": "pre",
+    "sort_order": 7,
+    "title": "Open OBS",
+    "instructions": "1. At Computer 2, open the existing OBS application.\n2. Wait for the usual scenes and sources to load.\n3. Continue with the profile, video, and audio checks before starting the broadcast.",
+    "resources": []
+  },
+  {
+    "task_key": "computer2_pre_08",
+    "station": "computer2",
+    "phase": "pre",
+    "sort_order": 8,
+    "title": "Verify correct OBS profile",
+    "instructions": "1. Open OBS on Computer 2.\n2. Confirm the existing church broadcast profile and scene collection using the normal process.\n3. If unsure, ask the regular operator; do not select a different profile by guesswork. Add the approved names here.",
+    "resources": []
+  },
+  {
+    "task_key": "computer2_pre_09",
+    "station": "computer2",
+    "phase": "pre",
+    "sort_order": 9,
+    "title": "Verify camera/video sources",
+    "instructions": "1. In OBS, preview the existing video sources used by the Sunday broadcast.\n2. Coordinate with Computer 4 to confirm the intended camera and presentation signals arrive.\n3. Resolve missing or incorrect sources with the regular operator before changing source configuration.",
+    "resources": []
+  },
+  {
+    "task_key": "computer2_pre_10",
+    "station": "computer2",
+    "phase": "pre",
+    "sort_order": 10,
+    "title": "Verify audio source",
+    "instructions": "1. Check the existing OBS audio input and monitoring indicators.\n2. Coordinate with Computer 3 to confirm the dedicated livestream mix is reaching the broadcast.\n3. Listen through the normal monitoring path and resolve missing or distorted audio with the regular operator.",
+    "resources": []
+  },
+  {
+    "task_key": "computer2_pre_11",
+    "station": "computer2",
+    "phase": "pre",
+    "sort_order": 11,
+    "title": "Select STREAM STARTING SOON",
+    "instructions": "1. In OBS, select the church’s existing STREAM STARTING SOON scene.\n2. Confirm its preview and normal output.\n3. Continue with connection and stream checks using the existing broadcast procedure.",
+    "resources": []
+  },
+  {
+    "task_key": "computer2_pre_12",
+    "station": "computer2",
+    "phase": "pre",
+    "sort_order": 12,
+    "title": "Verify YouTube connection",
+    "instructions": "1. Check the existing OBS-to-YouTube connection using the usual live control views.\n2. Confirm you are targeting the correct Sunday broadcast.\n3. If configuration differs from the normal setup, ask the regular operator before changing it. Do not paste stream keys into the planner.",
+    "resources": []
+  },
+  {
+    "task_key": "computer2_pre_13",
+    "station": "computer2",
+    "phase": "pre",
+    "sort_order": 13,
+    "title": "Start stream",
+    "instructions": "1. Confirm the preceding broadcast checks are complete.\n2. At the usual Sunday start time, manually start the stream in OBS using the normal church procedure.\n3. Confirm receipt in YouTube in the next task. This website does not start the stream.",
+    "resources": []
+  },
+  {
+    "task_key": "computer2_pre_14",
+    "station": "computer2",
+    "phase": "pre",
+    "sort_order": 14,
+    "title": "Confirm YouTube is receiving stream",
+    "instructions": "1. Open the existing YouTube live control view.\n2. Confirm video and audio are arriving from OBS.\n3. Review stream health before marking the station ready.",
+    "resources": []
+  },
+  {
+    "task_key": "computer2_pre_15",
+    "station": "computer2",
+    "phase": "pre",
+    "sort_order": 15,
+    "title": "Mark Computer 2 READY",
+    "instructions": "1. Complete every preceding task in this phase.\n2. Resolve any outstanding station issue with the team.\n3. Check this task to update the shared readiness display. This does not control any equipment.",
+    "resources": []
+  },
+  {
+    "task_key": "computer2_start_01",
+    "station": "computer2",
+    "phase": "start",
+    "sort_order": 1,
+    "title": "Switch OBS to MAIN SERVICE",
+    "instructions": "1. At the actual service start, manually select the existing MAIN SERVICE scene in OBS.\n2. Use the normal church transition procedure.\n3. Check the outgoing video and audio in the following tasks.",
+    "resources": []
+  },
+  {
+    "task_key": "computer2_start_02",
+    "station": "computer2",
+    "phase": "start",
+    "sort_order": 2,
+    "title": "Verify video",
+    "instructions": "1. Review the outgoing broadcast video using the existing OBS/YouTube monitoring process.\n2. Confirm the intended camera or service presentation is visible.\n3. Coordinate with Computer 4 about missing views or presentation output.",
+    "resources": []
+  },
+  {
+    "task_key": "computer2_start_03",
+    "station": "computer2",
+    "phase": "start",
+    "sort_order": 3,
+    "title": "Verify audio",
+    "instructions": "1. Listen to the outgoing broadcast using the normal monitoring path.\n2. Confirm the livestream mix is present and understandable.\n3. Coordinate with Computer 3 about missing channels, distortion, or balance problems.",
+    "resources": []
+  },
+  {
+    "task_key": "computer2_start_04",
+    "station": "computer2",
+    "phase": "start",
+    "sort_order": 4,
+    "title": "Verify stream health",
+    "instructions": "1. Review stream health in the existing YouTube live control view.\n2. Watch for connection or delivery warnings.\n3. Follow the regular broadcast operator’s troubleshooting procedure for any issue; add that procedure here.",
+    "resources": []
+  },
+  {
+    "task_key": "computer2_end_01",
+    "station": "computer2",
+    "phase": "end",
+    "sort_order": 1,
+    "title": "Switch to ending scene if applicable",
+    "instructions": "1. At the end of the actual service, follow the usual broadcast wrap-up timing.\n2. If an ending scene is part of the normal workflow, manually select it in OBS.\n3. Confirm the intended ending output before stopping the stream.",
+    "resources": []
+  },
+  {
+    "task_key": "computer2_end_02",
+    "station": "computer2",
+    "phase": "end",
+    "sort_order": 2,
+    "title": "Stop OBS stream",
+    "instructions": "1. At the actual end of the broadcast, use the usual ending scene/process.\n2. Manually stop streaming in OBS.\n3. Confirm the YouTube broadcast has ended in the next task.",
+    "resources": []
+  },
+  {
+    "task_key": "computer2_end_03",
+    "station": "computer2",
+    "phase": "end",
+    "sort_order": 3,
+    "title": "Confirm YouTube broadcast ended",
+    "instructions": "1. Check the church’s YouTube live control view after stopping OBS.\n2. Confirm the broadcast is ended, following the existing church process if a separate end action is needed.\n3. Verify it is no longer broadcasting before marking completion.",
+    "resources": []
+  },
+  {
+    "task_key": "computer2_end_04",
+    "station": "computer2",
+    "phase": "end",
+    "sort_order": 4,
+    "title": "Mark Broadcast COMPLETE",
+    "instructions": "1. Complete every preceding task in this phase.\n2. Resolve any outstanding station issue with the team.\n3. Check this task to update the shared readiness display. This does not control any equipment.",
+    "resources": []
+  },
+  {
+    "task_key": "computer3_pre_01",
+    "station": "computer3",
+    "phase": "pre",
+    "sort_order": 1,
+    "title": "Open Main Service Feed",
+    "instructions": "1. Open Service Planner in the church admin.\n2. Select the current Sunday by date and week number.\n3. Review sermon, worship, and station readiness before continuing.",
+    "resources": []
+  },
+  {
+    "task_key": "computer3_pre_02",
+    "station": "computer3",
+    "phase": "pre",
+    "sort_order": 2,
+    "title": "Review worship team",
+    "instructions": "1. Open the Worship section for this Sunday.\n2. Review the planned leaders and additional vocalists for each song.\n3. Compare with the people on the platform and note substitutions with the team.",
+    "resources": []
+  },
+  {
+    "task_key": "computer3_pre_03",
+    "station": "computer3",
+    "phase": "pre",
+    "sort_order": 3,
+    "title": "Review lead singers",
+    "instructions": "1. Read the lead vocalist for each song in the Worship section.\n2. Compare the scheduled leaders with the actual platform.\n3. Use this reference while preparing the existing livestream mix.",
+    "resources": []
+  },
+  {
+    "task_key": "computer3_pre_04",
+    "station": "computer3",
+    "phase": "pre",
+    "sort_order": 4,
+    "title": "Review instruments",
+    "instructions": "1. Review the instrument details in the worship notes and the current team’s normal instrument plan.\n2. Compare with the instruments actually on the platform.\n3. Confirm missing details with Erin or the regular audio operator before checking channels.",
+    "resources": []
+  },
+  {
+    "task_key": "computer3_pre_05",
+    "station": "computer3",
+    "phase": "pre",
+    "sort_order": 5,
+    "title": "Turn on Flow 8",
+    "instructions": "1. Use the normal Flow 8 power-up procedure at Computer 3.\n2. Confirm the unit powers on.\n3. Ask the regular audio operator if power or connectivity differs from the usual setup. Add the exact local power sequence here.",
+    "resources": []
+  },
+  {
+    "task_key": "computer3_pre_06",
+    "station": "computer3",
+    "phase": "pre",
+    "sort_order": 6,
+    "title": "Verify Flow 8 operation",
+    "instructions": "1. Confirm Flow 8 is powered and functioning in the existing stream-audio setup.\n2. Check the expected signal/monitoring indicators using the usual procedure.\n3. Resolve unexpected behavior with the regular audio operator before proceeding.",
+    "resources": []
+  },
+  {
+    "task_key": "computer3_pre_07",
+    "station": "computer3",
+    "phase": "pre",
+    "sort_order": 7,
+    "title": "Open Dante",
+    "instructions": "1. Open the installed Dante application on Computer 3.\n2. Use the existing church configuration.\n3. Review the device and routing tasks below; do not create a new configuration.",
+    "resources": []
+  },
+  {
+    "task_key": "computer3_pre_08",
+    "station": "computer3",
+    "phase": "pre",
+    "sort_order": 8,
+    "title": "Verify Dante devices",
+    "instructions": "1. Open the existing Dante application.\n2. Confirm expected church devices are visible and connected.\n3. Ask the regular audio operator about missing devices before changing network or routing settings. The device list should be added here.",
+    "resources": []
+  },
+  {
+    "task_key": "computer3_pre_09",
+    "station": "computer3",
+    "phase": "pre",
+    "sort_order": 9,
+    "title": "Verify required routing",
+    "instructions": "1. Open the existing Dante routing view.\n2. Compare connected devices and routes with the church’s approved routing reference.\n3. Confirm the intended livestream signals arrive. Do not guess routing or change it without the regular audio operator’s guidance. The exact approved routing reference still needs to be attached.",
+    "resources": []
+  },
+  {
+    "task_key": "computer3_pre_10",
+    "station": "computer3",
+    "phase": "pre",
+    "sort_order": 10,
+    "title": "Open Fender Studio",
+    "instructions": "1. Open the installed Fender Studio application on Computer 3.\n2. Use the existing church setup.\n3. Open the usual Service Template in the next task. The regular operator should add the exact template location.",
+    "resources": []
+  },
+  {
+    "task_key": "computer3_pre_11",
+    "station": "computer3",
+    "phase": "pre",
+    "sort_order": 11,
+    "title": "Open Service Template",
+    "instructions": "1. Locate the existing Service Template in Fender Studio.\n2. Open it using the normal Sunday process.\n3. Confirm it is the church template before adjusting the livestream mix. The exact file path and settings still need to be documented.",
+    "resources": []
+  },
+  {
+    "task_key": "computer3_pre_12",
+    "station": "computer3",
+    "phase": "pre",
+    "sort_order": 12,
+    "title": "Compare scheduled team with actual platform",
+    "instructions": "1. Compare the worship leaders, additional vocalists, and instrument notes with the actual platform team.\n2. Identify any difference before sound checks.\n3. Confirm changes with the team and prepare the usual livestream inputs accordingly.",
+    "resources": []
+  },
+  {
+    "task_key": "computer3_pre_13",
+    "station": "computer3",
+    "phase": "pre",
+    "sort_order": 13,
+    "title": "Identify substitutions or absences",
+    "instructions": "1. Confirm any vocalist or instrument substitutions with the worship team.\n2. Add relevant shared notes to the worship plan when appropriate.\n3. Use the actual platform lineup for the following channel checks.",
+    "resources": []
+  },
+  {
+    "task_key": "computer3_pre_14",
+    "station": "computer3",
+    "phase": "pre",
+    "sort_order": 14,
+    "title": "Monitor each active channel",
+    "instructions": "1. Compare the platform team with the worship plan and substitutions.\n2. Monitor each active input using the normal Computer 3 procedure.\n3. Check signal and clarity for each source. This is the livestream mix, separate from FOH sanctuary audio.",
+    "resources": []
+  },
+  {
+    "task_key": "computer3_pre_15",
+    "station": "computer3",
+    "phase": "pre",
+    "sort_order": 15,
+    "title": "Verify correct signal on each channel",
+    "instructions": "1. Check each active livestream channel individually using the regular monitoring procedure.\n2. Confirm the intended singer or instrument arrives on that channel.\n3. Ask the regular operator to resolve missing or incorrect signals before changing routing.",
+    "resources": []
+  },
+  {
+    "task_key": "computer3_pre_16",
+    "station": "computer3",
+    "phase": "pre",
+    "sort_order": 16,
+    "title": "Prepare livestream mix",
+    "instructions": "1. Use the normal Computer 3 mixing procedure for the livestream audience.\n2. Review song leaders and platform substitutions.\n3. Confirm the mix through the existing livestream monitoring path. FOH handles the sanctuary mix separately.",
+    "resources": []
+  },
+  {
+    "task_key": "computer3_pre_17",
+    "station": "computer3",
+    "phase": "pre",
+    "sort_order": 17,
+    "title": "Mark Computer 3 READY",
+    "instructions": "1. Complete every preceding task in this phase.\n2. Resolve any outstanding station issue with the team.\n3. Check this task to update the shared readiness display. This does not control any equipment.",
+    "resources": []
+  },
+  {
+    "task_key": "computer4_pre_01",
+    "station": "computer4",
+    "phase": "pre",
+    "sort_order": 1,
+    "title": "Open Main Service Feed",
+    "instructions": "1. Open Service Planner in the church admin.\n2. Select the current Sunday by date and week number.\n3. Review sermon, worship, and station readiness before continuing.",
+    "resources": []
+  },
+  {
+    "task_key": "computer4_pre_02",
+    "station": "computer4",
+    "phase": "pre",
+    "sort_order": 2,
+    "title": "Confirm Computer 1 service is complete",
+    "instructions": "1. Review Computer 1 readiness in the Main Service Feed.\n2. Confirm with Elle-Belle or the current operator that the weekly presentation file has been built and saved.\n3. Use that prepared service as the reference for the stream presentation.",
+    "resources": []
+  },
+  {
+    "task_key": "computer4_pre_03",
+    "station": "computer4",
+    "phase": "pre",
+    "sort_order": 3,
+    "title": "Open Google Drive",
+    "instructions": "1. At Computer 4, open the existing church Google Drive location using the normal authorized account.\n2. Confirm access to the Sunday service resources.\n3. Follow the folder tasks below. Add the approved folder link here; do not store credentials.",
+    "resources": []
+  },
+  {
+    "task_key": "computer4_pre_04",
+    "station": "computer4",
+    "phase": "pre",
+    "sort_order": 4,
+    "title": "Locate SERMON AND SONG NOTES",
+    "instructions": "1. Open the church’s existing Google Drive location.\n2. Find SERMON AND SONG NOTES.\n3. Select the current Sunday’s week folder. The regular operator should add the exact shared link here.",
+    "resources": []
+  },
+  {
+    "task_key": "computer4_pre_05",
+    "station": "computer4",
+    "phase": "pre",
+    "sort_order": 5,
+    "title": "Locate correct Week Number",
+    "instructions": "1. Read the Sunday date and ISO week number at the top of the planner.\n2. Match the date and the church’s folder label in Google Drive.\n3. If the church’s folder numbering differs, confirm the correct folder with the regular operator before opening it.",
+    "resources": []
+  },
+  {
+    "task_key": "computer4_pre_06",
+    "station": "computer4",
+    "phase": "pre",
+    "sort_order": 6,
+    "title": "Open weekly service",
+    "instructions": "1. Confirm the Sunday date and correct week folder in the existing shared resource location.\n2. Open the weekly service using the current stream-presentation application and normal process.\n3. Confirm it is the service prepared for this Sunday before applying stream themes.",
+    "resources": []
+  },
+  {
+    "task_key": "computer4_pre_07",
+    "station": "computer4",
+    "phase": "pre",
+    "sort_order": 7,
+    "title": "Verify songs",
+    "instructions": "1. Compare the stream presentation songs with this Sunday’s Worship section.\n2. Check titles, song order, and the usual lyric sequence.\n3. Resolve discrepancies with Erin or the current Computer 1 operator before proceeding.",
+    "resources": []
+  },
+  {
+    "task_key": "computer4_pre_08",
+    "station": "computer4",
+    "phase": "pre",
+    "sort_order": 8,
+    "title": "Verify scriptures",
+    "instructions": "1. Read the primary and additional scriptures in the shared Sermon section.\n2. Compare them with the content at this station.\n3. Confirm discrepancies with Pastor Andrew or the current presentation operator.",
+    "resources": []
+  },
+  {
+    "task_key": "computer4_pre_09",
+    "station": "computer4",
+    "phase": "pre",
+    "sort_order": 9,
+    "title": "Apply black stream theme to songs",
+    "instructions": "1. In the existing stream presentation application, open this Sunday’s songs.\n2. Apply the usual black stream theme using the normal church procedure.\n3. Preview the stream output and confirm the lyrics are readable. Add the exact local theme name and steps here.",
+    "resources": []
+  },
+  {
+    "task_key": "computer4_pre_10",
+    "station": "computer4",
+    "phase": "pre",
+    "sort_order": 10,
+    "title": "Apply black stream theme to scriptures",
+    "instructions": "1. Open this Sunday’s scriptures in the existing stream presentation application.\n2. Apply the usual black stream theme.\n3. Preview the stream output and confirm readability. Add the exact local theme name and steps here.",
+    "resources": []
+  },
+  {
+    "task_key": "computer4_pre_11",
+    "station": "computer4",
+    "phase": "pre",
+    "sort_order": 11,
+    "title": "Verify cameras",
+    "instructions": "1. Use the existing camera system and normal startup process.\n2. Confirm the expected cameras are available at Computer 4.\n3. Report any missing camera to the regular operator before changing system settings.",
+    "resources": []
+  },
+  {
+    "task_key": "computer4_pre_12",
+    "station": "computer4",
+    "phase": "pre",
+    "sort_order": 12,
+    "title": "Verify camera views",
+    "instructions": "1. Preview each usual camera view.\n2. Confirm framing, focus, and the expected platform coverage.\n3. Follow the current church camera procedure; add the approved view reference images here.",
+    "resources": []
+  },
+  {
+    "task_key": "computer4_pre_13",
+    "station": "computer4",
+    "phase": "pre",
+    "sort_order": 13,
+    "title": "Verify stream presentation output",
+    "instructions": "1. Preview the stream-specific lyrics and scripture output through the existing system.\n2. Confirm the black theme and intended output are visible.\n3. Coordinate with the broadcast operator to confirm the viewers’ presentation path.",
+    "resources": []
+  },
+  {
+    "task_key": "computer4_pre_14",
+    "station": "computer4",
+    "phase": "pre",
+    "sort_order": 14,
+    "title": "Mark Computer 4 READY",
+    "instructions": "1. Complete every preceding task in this phase.\n2. Resolve any outstanding station issue with the team.\n3. Check this task to update the shared readiness display. This does not control any equipment.",
+    "resources": []
+  }
+]

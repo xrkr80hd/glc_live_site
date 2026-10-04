@@ -1,0 +1,36 @@
+.workspace {max-width:1050px;width:100%;min-width:0}
+.workspace *, .workspace *::before, .workspace *::after {box-sizing:border-box}
+.workspace-section {margin:1.5rem 0;padding-top:1rem;border-top:1px solid #526074}
+.workspace-section h3 {margin:0 0 .8rem}
+.tool-detail,.howto {border:1px solid #526074;border-radius:3px;margin:.65rem 0;padding:.75rem}
+.tool-detail summary,.howto summary {cursor:pointer;min-height:34px;line-height:1.5;font-weight:600}
+.tool-detail .btn {margin:.25rem .5rem .25rem 0}
+.workspace .btn,.workspace button,.workspace input,.workspace textarea,.workspace select,.workspace .status {border-radius:3px!important}
+.workspace input:not([type=checkbox]),.workspace textarea,.workspace select {width:100%;max-width:100%;padding:.65rem;border:1px solid #6e7d91;background:#152033;color:#fff;font:inherit}
+.workspace textarea {min-height:100px;resize:vertical}
+.workspace label {display:block;margin:.8rem 0 .35rem}
+.workspace .form-pair {display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.workspace .btn,.workspace button {min-height:44px;padding:.6rem .9rem;cursor:pointer}
+.workspace .actions {display:flex;flex-wrap:wrap;align-items:center;gap:.6rem;margin:.8rem 0}
+.workspace .status {display:inline-block;font-size:.8rem;font-weight:700;padding:.35rem .6rem;border:1px solid #70849b;color:#e7edf5;background:#243348;white-space:nowrap}
+.workspace .status[data-status=READY],.workspace .status[data-status=COMPLETE] {border-color:#57ba89;color:#b4f8cf;background:#173d30}
+.workspace .status[data-status="IN PROGRESS"] {border-color:#e3b760;color:#ffe2a3;background:#49371d}
+.feed-link {display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:.9rem .5rem;border-bottom:1px solid #526074;color:inherit;text-decoration:none;min-height:58px}
+.feed-link:hover {background:#243348}
+.feed-link small {display:block;margin-top:.3rem;color:#b6c5d7}
+.task {padding:.6rem 0;border-bottom:1px solid #526074}
+.task .task-label {display:flex;align-items:center;gap:.8rem;margin:0;min-height:48px;cursor:pointer}
+.task input[type=checkbox] {width:26px;height:26px;flex-shrink:0;accent-color:#59b48a}
+.task .howto {margin:.2rem 0 .5rem 2.4rem;padding:.5rem .75rem}
+.task .howto summary {font-size:.78rem;letter-spacing:.02em}
+.instruction-text {white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.65}
+.workspace .song {border-top:1px solid #526074;padding:.8rem 0}
+.workspace .song-head {display:flex;justify-content:space-between;align-items:center;gap:.7rem}
+.workspace .song-head h4 {margin:0}
+.workspace .save-message {min-height:24px;margin:.5rem 0;color:#b6c5d7}
+.workspace .save-message.error {color:#ffb6b6}
+.workspace .reference {padding:.8rem 0;white-space:pre-wrap;overflow-wrap:anywhere}
+.workspace .service-history {padding:0;list-style:none}
+.workspace .service-history li {border-bottom:1px solid #526074}
+.admin-shell button,.admin-shell input,.admin-shell select,.admin-shell textarea,.admin-shell .resource-link,.admin-shell .btn,.admin-shell .admin-top-link,.admin-shell .resource-nav-home {border-radius:3px!important}
+@media(max-width:700px){.workspace .form-pair{grid-template-columns:1fr;gap:0}.workspace .song-head{align-items:flex-start;flex-direction:column}.workspace .feed-link{gap:.6rem}.workspace .task .howto{margin-left:0}.workspace .actions{gap:.4rem}.workspace{font-size:16px}.admin-content{min-width:0}}
