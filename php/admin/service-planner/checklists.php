@@ -2,7 +2,7 @@
 // Included by the authenticated planner page. Not a standalone route.
 if (!isset($service, $tasks, $computers)) { http_response_code(404); exit; }
 ?>
-<section class="workspace-section checklist-controls"><p class="planner-eyebrow">MEDIA TEAM</p><h3><?=$computers?'Your station checklists':'3. Choose your computers'?></h3>
+<section class="workspace-section checklist-controls" id="planner-work-start" tabindex="-1"><p class="planner-eyebrow">MEDIA TEAM</p><h3><?=$computers?'Your station checklists':'3. Choose your computers'?></h3>
 <?php if(!$computers): ?>
     <?php sp_station_picker($id,[]); ?>
 <?php else: ?>

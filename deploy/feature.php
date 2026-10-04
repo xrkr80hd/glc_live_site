@@ -57,7 +57,7 @@ if (!str_contains($layout, 'admin_workspace_groups($resourceGroups)')) {
  if ($count !== 1) throw new RuntimeException('Could not integrate admin navigation. No live files changed.');
 }
 if (!str_contains($layout, '/assets/admin-workspace.css')) {
- $layout = str_replace('</head>', '<link rel="stylesheet" href="/assets/admin-workspace.css?v=3">'."\n</head>", $layout);
+ $layout = str_replace('</head>', '<link rel="stylesheet" href="/assets/admin-workspace.css?v=4">'."\n</head>", $layout);
 }
 if (!str_contains($layout, 'admin_workspace_navigation($active)')) {
  $menuLoop = '<?php foreach ($resourceGroups as $group): ?>';
@@ -67,12 +67,15 @@ if (!str_contains($layout, 'admin_workspace_navigation($active)')) {
 $layout = str_replace('<a class="resource-link" href="/php/admin/features/index.php">Feature</a>', '', $layout);
 // Keep overrides after the host stylesheet, and expire cached planner assets.
 $layout=preg_replace('~<link\b[^>]*href="/assets/admin-workspace\.css[^"\s]*"[^>]*>~','',$layout);
-$layout=str_replace('</head>','<link rel="stylesheet" href="/assets/admin-workspace.css?v=3">'."\n</head>",$layout);
+$layout=str_replace('</head>','<link rel="stylesheet" href="/assets/admin-workspace.css?v=4">'."\n</head>",$layout);
+// Restore the existing floating left-edge navigation control.
+$layout=preg_replace('~<div\b[^>]*class="admin-mobile-row"[^>]*>\s*<button\b[^>]*class="[^"]*resource-menu-inline[^"]*"[^>]*>.*?</button>\s*</div>~s','',$layout);
+$layout=str_replace('aria-label="Open content menu"','aria-label="Open navigation menu"',$layout);
 add_write('php/admin/layout.php',$layout);
 $ht=is_file($root.'/.htaccess')?file_get_contents($root.'/.htaccess'):'';
 if (!str_contains($ht,'RewriteRule ^operation-christmas-child')) $ht="<IfModule mod_rewrite.c>\nRewriteEngine On\nRewriteRule ^operation-christmas-child/?$ operation-christmas-child.php [L]\n</IfModule>\n".$ht;
 add_write('.htaccess',$ht);
-foreach (['api/feature/index.php','assets/js/feature.js','assets/occ.css','assets/ui-preferences.css','assets/operation-christmas-child.jpg','assets/operation-christmas-child-share.png','operation-christmas-child.php','php/features.php','php/api/feature.php','php/admin/features/index.php','php/admin/service-planner/access.php','php/admin/workspace-navigation.php','php/admin/media/index.php','php/admin/service-planner/presentation.php','php/admin/service-planner/checklists.php','php/admin/service-planner/foh.php','php/admin/service-planner/guide.php','php/admin/service-planner/service-sheet.php','php/admin/service-planner/model.php','php/admin/service-planner/index.php','php/admin/service-planner/state.php','php/admin/service-planner/default-tasks.json','database/service_planner.sql','assets/admin-workspace.css','assets/js/service-planner.js','assets/js/service-guide.js','php/admin/announcements/index.php','php/admin/announcements/new.php'] as $path) {
+foreach (['api/feature/index.php','assets/js/feature.js','assets/occ.css','assets/ui-preferences.css','assets/operation-christmas-child.jpg','assets/operation-christmas-child-share.png','operation-christmas-child.php','php/features.php','php/api/feature.php','php/admin/features/index.php','php/admin/service-planner/access.php','php/admin/workspace-navigation.php','php/admin/media/index.php','php/admin/service-planner/presentation.php','php/admin/service-planner/checklists.php','php/admin/service-planner/foh.php','php/admin/service-planner/guide.php','php/admin/service-planner/service-sheet.php','php/admin/service-planner/model.php','php/admin/service-planner/index.php','php/admin/service-planner/state.php','php/admin/service-planner/default-tasks.json','database/service_planner.sql','assets/admin-workspace.css','assets/js/service-planner.js','assets/js/service-guide.js','php/admin/announcements/index.php','php/admin/announcements/new.php','php/admin/users/index.php','php/admin/users/new.php','php/admin/users/edit.php'] as $path) {
  $source=$repo.'/'.$path;
  if (!is_file($source)) throw new RuntimeException('Missing feature file: '.$path);
  add_write($path,file_get_contents($source));

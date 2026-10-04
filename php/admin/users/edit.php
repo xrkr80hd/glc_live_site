@@ -101,9 +101,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $roleLabels = admin_role_labels();
 admin_page_start('Edit User', 'users');
 ?>
-<div class="card">
-    <h3>Edit Administrator</h3>
-    <p style="margin-top:-6px;color:var(--admin-muted);">Update credentials or permissions. Leave password blank to keep the current one.</p>
+<div class="card account-editor">
+    <p class="account-eyebrow">TEAM ACCESS</p><h2>Edit account</h2>
+    <p class="account-editor-intro">Update credentials or permissions. Leave password blank to keep the current one.</p>
 
     <?php if ($errors): ?>
         <div class="flash flash-error">
@@ -148,7 +148,7 @@ admin_page_start('Edit User', 'users');
                 <input type="password" name="password_confirm" autocomplete="new-password" placeholder="Leave blank to keep current password">
             </label>
         </div>
-        <div style="display:flex;gap:12px;">
+        <div class="account-editor-actions">
             <button class="btn btn-primary" type="submit">Save changes</button>
             <a class="btn btn-secondary" href="/php/admin/users/index.php">Cancel</a>
         </div>

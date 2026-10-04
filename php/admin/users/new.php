@@ -60,9 +60,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $roleLabels = admin_role_labels();
 admin_page_start('Add User', 'users');
 ?>
-<div class="card">
-    <h3>Create Administrator</h3>
-    <p style="margin-top:-6px;color:var(--admin-muted);">Grant access to trusted team members. Passwords are stored securely using bcrypt.</p>
+<div class="card account-editor">
+    <p class="account-eyebrow">TEAM ACCESS</p><h2>Add an account</h2>
+    <p class="account-editor-intro">Enter a username, choose an existing role, and set a password.</p>
 
     <?php if ($errors): ?>
         <div class="flash flash-error">
@@ -100,7 +100,7 @@ admin_page_start('Add User', 'users');
                 <input type="password" name="password_confirm" required autocomplete="new-password">
             </label>
         </div>
-        <div style="display:flex;gap:12px;">
+        <div class="account-editor-actions">
             <button class="btn btn-primary" type="submit">Create user</button>
             <a class="btn btn-secondary" href="/php/admin/users/index.php">Cancel</a>
         </div>

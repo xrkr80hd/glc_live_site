@@ -123,7 +123,7 @@ function admin_page_start(string $title, string $active = ''): void
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="/assets/admin.css?v=<?= rawurlencode($cssVersion) ?>">
-        <link rel="stylesheet" href="/assets/admin-workspace.css?v=3">
+        <link rel="stylesheet" href="/assets/admin-workspace.css?v=4">
     </head>
     <body class="admin-dark">
     <div class="admin-shell">
@@ -140,7 +140,7 @@ function admin_page_start(string $title, string $active = ''): void
         </header>
 
         <section class="admin-manager-panel">
-            <button type="button" class="resource-nav-launcher" aria-label="Open content menu" aria-expanded="false" aria-controls="adminResourceMenu">
+            <button type="button" class="resource-nav-launcher" aria-label="Open navigation menu" aria-expanded="false" aria-controls="adminResourceMenu">
                 <span class="launcher-open" aria-hidden="true">☰</span>
                 <span class="launcher-close" aria-hidden="true">×</span>
             </button>
@@ -187,9 +187,6 @@ function admin_page_start(string $title, string $active = ''): void
             </aside>
 
             <main class="admin-content">
-                <div class="admin-mobile-row">
-                    <button type="button" class="btn btn-secondary resource-menu-inline" aria-expanded="false" aria-controls="adminResourceMenu">Content Menu</button>
-                </div>
                 <header class="admin-content-head">
                     <div>
                         <h2><?= htmlspecialchars($title) ?></h2>

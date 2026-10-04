@@ -4,7 +4,7 @@ require_once __DIR__ . '/../layout.php';
 admin_require_login();
 admin_page_start('Media Management', 'media-management');
 ?>
-<link rel="stylesheet" href="/assets/admin-workspace.css?v=3">
+<link rel="stylesheet" href="/assets/admin-workspace.css?v=4">
 <div class="workspace">
     <p>Publish and manage website content using the existing tools.</p>
     <section class="workspace-section">

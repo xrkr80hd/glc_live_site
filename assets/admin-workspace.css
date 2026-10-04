@@ -143,12 +143,7 @@
 body.admin-dark:has(.planner-page) .admin-content-head {margin-bottom:0}
 body.admin-dark:has(.planner-page) .admin-content-head p {display:none}
 .planner-page .planner-breadcrumb {margin:.4rem 0 1rem}
-@media(min-width:1100px){
- body.admin-dark:has(.planner-page):not(.checklist-window) .admin-manager-panel{margin-left:296px}
- body.admin-dark:has(.planner-page):not(.checklist-window) .resource-nav{left:20px;top:135px;bottom:20px;width:280px;transform:none;border-radius:3px}
- body.admin-dark:has(.planner-page):not(.checklist-window) .resource-nav-launcher,
- body.admin-dark:has(.planner-page):not(.checklist-window) .resource-nav-backdrop{display:none}
-}
+
 @media(max-width:700px){
  body.admin-dark:has(.planner-page) .admin-topbar {padding:.55rem .6rem;gap:.25rem;margin-bottom:.6rem}
  body.admin-dark:has(.planner-page) .admin-topbar .admin-top-link{font-size:.75rem;padding:.35rem .3rem;min-height:32px}
@@ -286,3 +281,58 @@ body.admin-dark .admin-shell .announcement-move-cell .move-btn:disabled{opacity:
  body.admin-dark .admin-content:has(.albums-grid) .admin-content-head{display:none}
  .workspace .planner-section-tabs{margin:.6rem 0 .6rem;padding-bottom:.5rem}
 }
+
+/* A clear starting point, visually separate from the dark working area. */
+body.admin-dark .planner-page .planner-work-header{background:#edf3ef;color:#17392c;border:1px solid #a6bdae;border-left:5px solid #0f6048;border-radius:3px;padding:1.25rem;margin:0 0 1.25rem;box-sizing:border-box}
+body.admin-dark .planner-page .planner-work-header h2{color:#17392c;font-size:1.6rem;margin:.35rem 0 .6rem;max-width:42rem}
+body.admin-dark .planner-page .planner-work-header .planner-eyebrow{color:#0f6048;font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;font-weight:700}
+body.admin-dark .planner-page .planner-work-header .planner-first-step{color:#345343;font-size:.95rem;line-height:1.6;margin:0}
+body.admin-dark .planner-page .planner-start-button{background:#0f6048;color:#fff;border:1px solid #0f6048;box-shadow:none;min-height:44px;margin:1rem 0 0;font-size:.9rem;text-decoration:none}
+body.admin-dark .planner-page .planner-start-button:hover{background:#124d3b;color:#fff}
+body.admin-dark .planner-page .planner-start-button:focus-visible{outline:3px solid #17392c;outline-offset:3px}
+#planner-work-start{scroll-margin-top:1rem}
+/* Restore the original fixed left-edge tab; there is no duplicate page button. */
+body.admin-dark .admin-shell .resource-nav-launcher:not(.open),body.admin-dark .admin-shell .resource-nav-launcher.open{display:inline-flex!important;top:5rem;width:36px;height:48px;opacity:1;background:#0f6048;color:#fff;border-radius:0 3px 3px 0!important;box-shadow:none}
+body.admin-dark .admin-shell .resource-nav-launcher:focus-visible{outline:2px solid #fff;outline-offset:2px}
+
+/* Compact account entries: identity, status, dates, then deliberate actions. */
+body.admin-dark .admin-content:has(.account-management) .admin-content-head,body.admin-dark .admin-content:has(.account-editor) .admin-content-head{display:none}
+body.admin-dark .admin-shell .account-management,body.admin-dark .admin-shell .account-editor{min-width:0;max-width:1050px;width:100%;box-sizing:border-box;gap:1rem}
+body.admin-dark .admin-shell .account-page-header{display:flex;gap:1rem;justify-content:space-between;align-items:center;background:#edf3ef;color:#17392c;border-left:4px solid #0f6048;border-radius:3px;padding:1.1rem}
+body.admin-dark .admin-shell .account-page-header h2{font-size:1.4rem;color:#17392c;margin:.25rem 0 .45rem;line-height:1.3}
+body.admin-dark .admin-shell .account-page-header p:not(.account-eyebrow){color:#345343;font-size:.9rem;line-height:1.5;margin:0}
+body.admin-dark .admin-shell .account-eyebrow{font-size:.75rem;letter-spacing:.08em;font-weight:700;line-height:1.5;margin:0;color:var(--admin-muted)}
+body.admin-dark .admin-shell .account-page-header .account-eyebrow{color:#0f6048}
+body.admin-dark .admin-shell .account-page-header .btn-primary{background:#0f6048;color:#fff;white-space:nowrap;box-shadow:none}
+body.admin-dark .admin-shell .account-list{list-style:none;padding:0;margin:0;min-width:0}
+body.admin-dark .admin-shell .account-entry{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.7rem 1rem;padding:1rem 0;border-bottom:1px solid var(--admin-border);align-items:start;min-width:0}
+body.admin-dark .admin-shell .account-entry:last-child{border-bottom:0;padding-bottom:0}
+body.admin-dark .admin-shell .account-identity{min-width:0;overflow-wrap:anywhere}
+body.admin-dark .admin-shell .account-identity h3{font-size:1.05rem;line-height:1.4;margin:0;color:var(--admin-text)}
+body.admin-dark .admin-shell .account-identity p{font-size:.85rem;line-height:1.5;margin:.2rem 0 0;color:var(--admin-muted)}
+body.admin-dark .admin-shell .account-identity small{display:block;color:#a4d9c4;margin-top:.2rem;font-size:.75rem}
+body.admin-dark .admin-shell .account-status{font-size:.75rem;line-height:1.4;font-weight:600;border-radius:3px;padding:.3rem .5rem;border:1px solid #498f75;white-space:nowrap}
+body.admin-dark .admin-shell .account-status.is-active{background:#173d30;color:#b4f8cf}
+body.admin-dark .admin-shell .account-status.is-disabled{background:#49282d;color:#ffbdc0;border-color:#a76066}
+body.admin-dark .admin-shell .account-metadata{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:.6rem;margin:0;grid-column:1/-1;min-width:0}
+body.admin-dark .admin-shell .account-metadata div{min-width:0}
+body.admin-dark .admin-shell .account-metadata dt{font-size:.72rem;line-height:1.5;color:var(--admin-muted);margin-bottom:.2rem}
+body.admin-dark .admin-shell .account-metadata dd{font-size:.8rem;line-height:1.5;margin:0;color:var(--admin-text);overflow-wrap:anywhere}
+body.admin-dark .admin-shell .account-actions{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;grid-column:1/-1}
+body.admin-dark .admin-shell .account-actions form{display:block;margin:0;min-width:0}
+body.admin-dark .admin-shell .account-actions .btn,body.admin-dark .admin-shell .account-editor-actions .btn{box-sizing:border-box;min-width:0;width:100%;min-height:44px;font:inherit;font-size:.85rem;box-shadow:none;line-height:1.3}
+body.admin-dark .admin-shell .account-actions .btn-secondary{background:#303835;color:#f3f5f4;border:1px solid #526b5b}
+body.admin-dark .admin-shell .account-actions .btn-danger{background:#49282d;color:#ffbdc0;border:1px solid #a76066}
+body.admin-dark .admin-shell .account-actions .btn-primary{background:#0f6048;color:#fff;border:1px solid #498f75}
+body.admin-dark .admin-shell .account-editor h2{font-size:1.4rem;line-height:1.3;margin:.1rem 0}
+body.admin-dark .admin-shell .account-editor-intro{color:var(--admin-muted);margin:0;font-size:.9rem;line-height:1.6}
+body.admin-dark .admin-shell .account-editor .form-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:1rem}
+body.admin-dark .admin-shell .account-editor label{min-width:0;font-size:.85rem;line-height:1.5}
+body.admin-dark .admin-shell .account-editor input:not([type=checkbox]),body.admin-dark .admin-shell .account-editor select{box-sizing:border-box;width:100%;min-width:0;max-width:100%;min-height:44px;font-size:16px;background:#2d2d30;color:#f3f5f4;border:1px solid #6e8576}
+body.admin-dark .admin-shell .account-editor-actions{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:.6rem;padding-top:1rem;border-top:1px solid var(--admin-border)}
+@media(min-width:1000px){body.admin-dark .admin-shell .account-entry{grid-template-columns:minmax(0,1.3fr) auto minmax(0,1.5fr) 185px;align-items:center}body.admin-dark .admin-shell .account-metadata,body.admin-dark .admin-shell .account-actions{grid-column:auto}}
+@media(max-width:700px){body.admin-dark .planner-page .planner-work-header{padding:1rem;margin-bottom:1rem}body.admin-dark .planner-page .planner-work-header h2{font-size:1.35rem}body.admin-dark .planner-page .planner-work-header .planner-first-step{font-size:.9rem}body.admin-dark .planner-page .planner-start-button{width:100%;padding:.55rem .7rem}body.admin-dark .admin-shell .account-page-header{display:block;padding:.9rem}body.admin-dark .admin-shell .account-page-header .btn{display:flex;margin-top:.8rem;min-height:44px}body.admin-dark .admin-shell .account-editor .form-grid{grid-template-columns:minmax(0,1fr);gap:.8rem}body.admin-dark .admin-shell .account-entry{gap:.6rem .5rem}body.admin-dark .admin-shell .account-actions{margin-top:.15rem}}
+body.admin-dark .admin-content:has(.account-management),body.admin-dark .admin-content:has(.account-editor){min-width:0}
+body.admin-dark .admin-content:has(.account-management) .flash-stack,body.admin-dark .admin-content:has(.account-editor) .flash-stack{min-width:0;overflow-wrap:anywhere}
+body.admin-dark .admin-content:has(.account-management) .flash,body.admin-dark .admin-content:has(.account-editor) .flash{min-width:0;overflow-wrap:anywhere}
+body.admin-dark{--admin-nav-width:min(330px,calc(100vw - 44px))}

@@ -2,7 +2,7 @@
 if(getenv('DB_NAME')!=='church_test')throw new RuntimeException('Isolated DB only');
 require getcwd().'/php/config.php';
 require getcwd().'/php/admin/service-planner/model.php';
-$pdo=db();$pdo->exec(file_get_contents(getcwd().'/database/glc_cpanel_full_schema.sql'));sp_schema($pdo);
+$pdo=db();$pdo->exec(file_get_contents(getcwd().'/database/glc_cpanel_full_schema.sql'));sp_schema($pdo);$pdo->exec("DELETE FROM admin_users WHERE username IN ('qa_mobile_account','qa_mobile_account_with_a_long_username')");
 foreach(['pastor','admin','music_minister','media','sound','worship_team','youth_minister'] as $role){$s=$pdo->prepare('INSERT INTO admin_users(username,password_hash,role,is_active) VALUES(?,?,?,1) ON DUPLICATE KEY UPDATE password_hash=VALUES(password_hash),role=VALUES(role),is_active=1');$s->execute(['qa_'.$role,password_hash('local-test-only',PASSWORD_DEFAULT),$role]);}
 $pdo->exec('DELETE FROM service_task_completions');$pdo->exec('DELETE FROM service_plans');
 sp_mutate($pdo,['action'=>'create','service_date'=>'2026-10-04'],'qa_pastor');

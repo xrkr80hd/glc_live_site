@@ -127,5 +127,6 @@ function sp_work_intro(string $section, bool $hasSunday, bool $hasStations, bool
     if(!$intro)return;
     if(!$hasSunday)$intro[2]='First, open the Sunday service below. Then complete your section.';
     if($archived){$intro[1]='Saved Sunday · '.$intro[0];$intro[2]='This Sunday is archived. You can read its saved information and completion state.';}
-    ?><header class="planner-work-header"><p class="planner-eyebrow"><?=sp_e($intro[0])?> workspace</p><h2><?=sp_e($intro[1])?></h2><p class="planner-first-step"><?=sp_e($intro[2])?></p></header><?php
+    $startLabel=$archived?'View saved information':(!$hasSunday?'Choose a Sunday':match($section){'sermon'=>'Start with sermon information','announcements'=>'Start with announcement notes','worship'=>'Start with the song list',default=>$hasStations?'Open my checklists':'Choose my stations'});
+    ?><header class="planner-work-header"><p class="planner-eyebrow"><?=sp_e($intro[0])?> workspace</p><h2><?=sp_e($intro[1])?></h2><p class="planner-first-step"><?=sp_e($intro[2])?></p><a class="btn planner-start-button" href="#planner-work-start"><?=sp_e($startLabel)?> <span aria-hidden="true">↓</span></a></header><?php
 }
