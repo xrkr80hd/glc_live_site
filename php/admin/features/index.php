@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD']==='POST') {
  verify_csrf($_POST['csrf_token']??null);
  $f=['enabled'=>isset($_POST['enabled'])];
  foreach(['title','description','deadline','video','organizers','share_image'] as $key) {$f[$key]=trim((string)($_POST[$key]??''));}
- if (!preg_match('~^/(?:assets|uploads)/[A-Za-z0-9_./-]+\.(?:jpg|jpeg|png|webp)$~i',$f['share_image']) || str_contains($f['share_image'],'..')) {$f['share_image']='/assets/operation-christmas-child.jpg';}
+ if (!preg_match('~^/(?:assets|uploads)/[A-Za-z0-9_./-]+\.(?:jpg|jpeg|png|webp)$~i',$f['share_image']) || str_contains($f['share_image'],'..')) {$f['share_image']='/assets/operation-christmas-child-share.png';}
  if ($f['title']==='' || $f['deadline']==='' || strlen($f['description'])>10000 || strlen($f['organizers'])>5000 || ($f['video']!=='' && feature_video($f['video'])==='')) {admin_flash('error','Add a title and deadline. Video must be a valid YouTube or Vimeo HTTPS link.');}
  else {try{
  if (isset($_FILES['meta_image']) && $_FILES['meta_image']['error']!==UPLOAD_ERR_NO_FILE) {
