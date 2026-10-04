@@ -4,6 +4,9 @@
 RewriteEngine On
 RewriteBase /
 
+# Shareable mission feature
+RewriteRule ^operation-christmas-child/?$ operation-christmas-child.php [L]
+
 # Serve the home-screen app manifest with the correct content type
 AddType application/manifest+json .webmanifest
 

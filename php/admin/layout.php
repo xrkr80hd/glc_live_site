@@ -65,7 +65,7 @@ function admin_page_start(string $title, string $active = ''): void
             'items' => [
                 ['key' => 'announcements', 'label' => 'Announcements', 'href' => '/php/admin/announcements/index.php'],
                 ['key' => 'ministries', 'label' => 'Ministries', 'href' => '#admin-coming-soon'],
-                ['key' => 'seasonal-features', 'label' => 'Seasonal Features', 'href' => '#admin-coming-soon'],
+                ['key' => 'seasonal-features', 'label' => 'Feature', 'href' => '/php/admin/features/index.php'],
                 ['key' => 'social-links', 'label' => 'Social Links', 'href' => '#admin-coming-soon'],
             ],
         ],
@@ -157,6 +157,9 @@ function admin_page_start(string $title, string $active = ''): void
                                     continue;
                                 }
                                 if ($item['key'] === 'prayers' && !admin_can_view_prayers()) {
+                                    continue;
+                                }
+                                if ($item['key'] === 'seasonal-features' && !admin_has_role('pastor', 'admin', 'media')) {
                                     continue;
                                 }
                                 if ($item['key'] === 'users' && !admin_can_manage_users()) {

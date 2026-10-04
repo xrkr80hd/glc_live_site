@@ -55,7 +55,7 @@ const APP_NAME = 'Liberty Church Admin';
 const SESSION_NAME = 'liberty_admin_session';
 const UPLOAD_DIR = __DIR__ . '/../uploads';
 const MAX_UPLOAD_BYTES = 75 * 1024 * 1024; // 75 MB cap for youth media
-define('ADMIN_LOGIN_DISABLED', config_bool('ADMIN_LOGIN_DISABLED', true)); // Local OG_UPDATING conversion mode only.
+define('ADMIN_LOGIN_DISABLED', config_bool('ADMIN_LOGIN_DISABLED', false)); // Local OG_UPDATING conversion mode only.
 
 // Ensure sessions are available
 if (session_status() === PHP_SESSION_NONE) {
