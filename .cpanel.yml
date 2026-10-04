@@ -1,0 +1,4 @@
+---
+deployment:
+  tasks:
+    - /usr/bin/env php /home/golibert/repositories/glc_live_site/deploy/feature.php /home/golibert/public_html
