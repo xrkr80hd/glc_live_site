@@ -35,6 +35,39 @@ const fs=require('node:fs');
  for(const width of [375,390,768,1366]){await media.setViewportSize({width,height:900});for(const section of ['feed','media','sheet','notes']){await media.goto(url(section,section==='media'?'&computers[]=computer2&computers[]=computer3':''));assert.equal(await media.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,`No overflow ${width} ${section}`);}
  await media.goto(url('media','&computers[]=computer2&computers[]=computer3'));if(width===390){await media.locator('#computer2').scrollIntoViewIfNeeded();await media.screenshot({animations:'disabled',path:'docs/previews/service-planner-mobile.png'});await media.locator('.resource-menu-inline').click();await media.waitForTimeout(250);assert.equal(await media.locator('#adminResourceMenu').evaluate(el=>el.getBoundingClientRect().left>=0),true);await media.screenshot({animations:'disabled',path:'docs/previews/service-planner-mobile-menu.png'});await media.locator('.resource-nav-backdrop').click({position:{x:380,y:400}});}if(width===1366){await media.waitForFunction(()=>Math.abs(document.querySelector('#adminResourceMenu').getBoundingClientRect().left-20)<1);assert.equal(await media.locator('#adminResourceMenu').isVisible(),true);await media.screenshot({animations:'disabled',path:'docs/previews/service-planner-desktop.png'});}}
  await media.goto(url('sheet'));await media.screenshot({animations:'disabled',path:'docs/previews/service-sheet-desktop.png'});
+ // Real mobile editor coverage: saved and freshly added songs must use the same footer controls.
+ await music.setViewportSize({width:390,height:900});await music.goto(url('worship'));
+ assert.match(await music.locator('.planner-work-header').innerText(),/MUSIC MINISTER WORKSPACE/i);
+ assert.equal(await music.locator('.song-head button').count(),0);
+ await music.locator('.song').nth(1).locator('[data-song-action=up]').click();
+ assert.equal(await music.locator('[data-song-field=title]').first().inputValue(),'Great Are You Lord');
+ await music.locator('.song').first().locator('[data-song-action=down]').click();
+ assert.equal(await music.locator('[data-song-field=title]').first().inputValue(),'Goodness of God');
+ await music.locator('#add-song').click();const newSong=music.locator('.song').last();
+ await newSong.locator('[data-song-field=title]').fill('QA New mobile song');await newSong.locator('[data-song-field=key]').fill('E');await newSong.locator('[data-song-field=lead]').fill('QA Lead');
+ assert.equal(await newSong.locator('[data-song-action=down]').isDisabled(),true);
+ await newSong.locator('.song-extra-fields summary').click();await newSong.locator('[data-song-field=notes]').fill('Multiline mobile notes.\nKeep the intro soft.');
+ for(const song of await music.locator('.song').all()){
+   const buttons=await song.locator('.song-actions button').evaluateAll(nodes=>nodes.map(node=>{const r=node.getBoundingClientRect();return {top:r.top,height:r.height};}));
+   assert.equal(buttons.every(b=>Math.abs(b.top-buttons[0].top)<1 && b.height>=44),true,'Footer buttons share one touch-friendly row');
+   assert.equal(await song.evaluate(node=>{const footer=node.querySelector('.song-actions').getBoundingClientRect();return [...node.querySelectorAll('[data-song-field]')].filter(input=>input.checkVisibility()).every(input=>input.getBoundingClientRect().bottom<=footer.top);}),true,'Song actions belong below every field');
+ }
+ await newSong.locator('[data-song-action=remove]').click();assert.equal(await music.locator('.song').count(),2);
+ await music.getByRole('button',{name:'Save worship plan',exact:true}).click();await music.waitForFunction(()=>[...document.querySelectorAll('.save-message')].some(x=>x.textContent.includes('Saved')));
+ await music.reload();assert.equal(await music.locator('[data-song-field=title]').first().inputValue(),'Goodness of God');
+ await music.evaluate(()=>scrollTo(0,0));await music.screenshot({animations:'disabled',path:'docs/previews/worship-mobile-start.png'});await music.locator('.song').first().scrollIntoViewIfNeeded();await music.screenshot({animations:'disabled',path:'docs/previews/worship-mobile-song.png'});
+ for(const width of [320,375,390,768]){
+   await music.setViewportSize({width,height:900});await pastor.setViewportSize({width,height:900});await media.setViewportSize({width,height:900});
+   await music.goto(url('worship'));assert.equal(await music.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,`Worship fits ${width}`);
+   for(const section of ['sermon','announcements']){await pastor.goto(url(section));assert.equal(await pastor.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,`Pastor ${section} fits ${width}`);assert.match(await pastor.locator('.planner-work-header').innerText(),/PASTOR WORKSPACE/i);}
+   const albumPage='/php/admin/youth-albums/index.php';
+   const paths=['/php/admin/media/index.php','/php/admin/announcements/index.php','/php/admin/announcements/new.php','/php/admin/youth-scripture/index.php',albumPage,'/php/admin/youth-albums/new.php','/php/admin/features/index.php','/php/admin/stream/index.php'];
+   for(const path of paths){const response=await media.goto(base+path);assert.equal(response.status(),200,path);assert.equal(await media.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,`${path} fits ${width}`);}
+   await media.goto(base+albumPage);const album=media.locator('.album-card').filter({hasText:'QA Youth gallery'});await album.getByRole('link',{name:'Manage Photos',exact:true}).click();assert.equal(await media.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,`Media uploads fit ${width}`);
+ }
+ await pastor.setViewportSize({width:390,height:900});await pastor.goto(url('sermon'));await pastor.screenshot({animations:'disabled',path:'docs/previews/pastor-mobile-start.png'});
+ await media.setViewportSize({width:390,height:900});await media.goto(base+'/php/admin/announcements/index.php');await media.screenshot({animations:'disabled',path:'docs/previews/announcements-mobile.png'});
+ console.log('Mobile worship footer controls, song ordering/add/remove/save, Pastor introductions, and all implemented MMS screens checked at 320/375/390/768px.');
  await pastor.goto(url('feed'));await pastor.locator('.tool-detail summary').click();await pastor.getByRole('button',{name:'Archive this Sunday'}).click();await pastor.waitForFunction(()=>document.querySelector('#service-planner').dataset.archived==='1');
  await music.goto(url('worship'));assert.equal(await music.locator('[name=ready]').isDisabled(),true);assert.equal(await music.locator('#add-song').count(),0);
  await phone.goto(url('media','&computers[]=computer2'));assert.equal(await phone.locator('[data-task-key]').first().isDisabled(),true);

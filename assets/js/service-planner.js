@@ -178,6 +178,9 @@
     if (!songs) return;
     [...songs.children].forEach((song, index) => {
       song.querySelector('.song-number').textContent = String(index + 1);
+      song.querySelector('.song-actions')?.setAttribute('aria-label', `Song ${index + 1} order controls`);
+      song.querySelector('[data-song-action="up"]')?.setAttribute('aria-label', `Move song ${index + 1} up`);
+      song.querySelector('[data-song-action="down"]')?.setAttribute('aria-label', `Move song ${index + 1} down`);
       song.querySelectorAll('[data-song-field]').forEach(input => { input.name = `songs[${index}][${input.dataset.songField}]`; });
       const up = song.querySelector('[data-song-action="up"]');
       const down = song.querySelector('[data-song-action="down"]');
@@ -188,15 +191,9 @@
   const add = document.getElementById('add-song');
   if (songs && add) {
     add.addEventListener('click', () => {
-      const song = document.createElement('div'); song.className = 'song';
-      const head = document.createElement('div'); head.className = 'song-head';
-      head.innerHTML = '<h4>Song <span class="song-number"></span></h4><div class="actions"><button type="button" data-song-action="up" aria-label="Move song up">↑ Up</button><button type="button" data-song-action="down" aria-label="Move song down">↓ Down</button><button type="button" data-song-action="remove">Remove</button></div>';
-      song.append(head);
-      Object.entries({title: 'Song title', key: 'Key', lead: 'Lead vocalist', additional: 'Additional vocalists', notes: 'Special notes / instruments'}).forEach(([key, text]) => {
-        const label = document.createElement('label'); label.textContent = text;
-        const input = document.createElement('input'); input.dataset.songField = key;
-        input.maxLength = 12000; input.required = key === 'title'; label.append(input); song.append(label);
-      });
+      const template = document.getElementById('song-template');
+      if (!template) return;
+      const song = template.content.firstElementChild.cloneNode(true);
       songs.append(song); renumber(); song.querySelector('input').focus();
     });
     songs.addEventListener('click', event => {

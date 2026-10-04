@@ -12,4 +12,6 @@ sp_mutate($pdo,['action'=>'worship','service_id'=>$id,'revision'=>1,'songs'=>[['
 $pdo->exec("DELETE FROM announcements WHERE title LIKE 'QA %'");
 $s=$pdo->prepare('INSERT INTO announcements(category,title,body,start_date,end_date,is_published,sort_order) VALUES(?,?,?,?,?,1,0)');
 $s->execute(['main','QA Upcoming outreach','Prepare the announcement graphic.','2026-10-18','2026-10-18']);$s->execute(['main','QA Expired event','Should not appear.','2026-09-01','2026-09-02']);$s->execute(['youth','QA Youth night','Youth announcement.','2026-10-10','2026-10-10']);
+$album=$pdo->prepare('INSERT INTO youth_albums(title,summary,event_date,is_active) SELECT ?,?,?,1 WHERE NOT EXISTS(SELECT 1 FROM youth_albums WHERE title=?)');
+$album->execute(['QA Youth gallery','Photos from our youth gatherings.','2026-10-04','QA Youth gallery']);
 echo "Fixture Sunday ID: $id\n";

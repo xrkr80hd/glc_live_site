@@ -41,7 +41,7 @@ try {
 }catch(Throwable $e){if($uploadedPath && is_file($uploadedPath))unlink($uploadedPath);$error=$e instanceof InvalidArgumentException || $e->getCode()===409?$e->getMessage():'The guide could not load or save. Try again.';if(!($e instanceof InvalidArgumentException) && $e->getCode()!==409)error_log($e->getMessage());}
 $resources=$task?sp_decode($task['resources_json']??'[]'):[];
 ?>
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title><?=sp_e($task?$task['title']:'Station Manual')?> · Liberty Church</title><link rel="stylesheet" href="/assets/admin.css"><link rel="stylesheet" href="/assets/admin-workspace.css?v=2"></head>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title><?=sp_e($task?$task['title']:'Station Manual')?> · Liberty Church</title><link rel="stylesheet" href="/assets/admin.css"><link rel="stylesheet" href="/assets/admin-workspace.css?v=3"></head>
 <body class="admin-dark guide-body"><main class="workspace guide-workspace">
     <header class="guide-header"><div><p class="planner-eyebrow">LIBERTY CHURCH</p><h1>Station Manual</h1></div><button type="button" class="btn btn-secondary" id="close-guide" hidden>Close guide</button></header>
     <nav class="planner-breadcrumb"><a href="<?=sp_e(sp_guide_url($id))?>">All stations</a><?php if($station): ?><span aria-hidden="true">/</span><a href="<?=sp_e(sp_guide_url($id,$station))?>"><?=sp_e(sp_stations()[$station][0])?></a><?php endif; ?></nav>

@@ -31,11 +31,12 @@ try {
 }
 $popout=($_GET['popout']??'')==='1';
 if(!$popout)admin_page_start('Service Planner','service-planner');
-else { ?><!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Sunday Checklist · Liberty Church</title><link rel="stylesheet" href="/assets/admin.css"><link rel="stylesheet" href="/assets/admin-workspace.css?v=2"></head><body class="admin-dark guide-body checklist-window"><main><?php }
+else { ?><!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Sunday Checklist · Liberty Church</title><link rel="stylesheet" href="/assets/admin.css"><link rel="stylesheet" href="/assets/admin-workspace.css?v=3"></head><body class="admin-dark guide-body checklist-window"><main><?php }
 ?>
-<link rel="stylesheet" href="/assets/admin-workspace.css?v=2">
+<link rel="stylesheet" href="/assets/admin-workspace.css?v=3">
 <div class="workspace planner-page" id="service-planner" data-popout="<?=$popout?'1':'0'?>" data-section="<?=sp_e($section)?>" data-service-id="<?=$id?>" data-revision="<?=(int)($service['revision']??0)?>" data-archived="<?=!empty($service['is_archived'])?'1':'0'?>">
 <?php if($popout): ?><header class="guide-header"><h1>Sunday Checklist</h1><button class="btn btn-secondary" type="button" id="close-guide" hidden>Close</button></header><?php if($id): ?><nav class="planner-section-tabs"><a href="<?=sp_e(sp_page_url($id,'media',$computers))?>">Checklists</a><a href="<?=sp_e(sp_page_url($id,'sheet',$computers))?>">Service Sheet</a><a href="<?=sp_e(sp_page_url($id,'notes',$computers))?>">Notes</a></nav><?php endif; endif; ?>
+<?php if(!$popout)sp_work_intro($section,(bool)$service,(bool)$computers,(bool)($service['is_archived']??false)); ?>
 <?php if($error): ?><p class="flash flash-error" role="alert"><?=sp_e($error)?></p><?php endif; ?>
 <?php if(!$service): ?>
     <p class="planner-eyebrow">START HERE</p><h3>1. Choose the Sunday</h3>
@@ -68,35 +69,38 @@ else { ?><!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="
     <?php elseif(in_array($section,['sheet','notes'],true)): ?>
         <?php require __DIR__.'/service-sheet.php'; ?>
     <?php elseif($section==='announcements'): ?>
-        <?php sp_media_readiness($statuses); ?>
         <section class="workspace-section"><p class="planner-eyebrow">PASTOR</p><h3>Church announcements</h3><nav class="planner-section-tabs"><a href="<?=sp_e(sp_page_url($id,'sermon'))?>">Sermon</a><a href="<?=sp_e(sp_page_url($id,'announcements'))?>" aria-current="page">Announcements</a></nav>
         <form method="post" data-planner-form><?php sp_hidden($service,'announcements'); ?><fieldset <?=$archived?'disabled':''?> style="border:0;padding:0"><label for="announcement-notes">Announcement notes for Media</label><p>List dates, reminders, and what Media needs to prepare for this Sunday.</p><textarea id="announcement-notes" name="announcement_notes" maxlength="12000"><?=sp_e($service['sermon']['announcement_notes']??'')?></textarea><?php if(!$archived): ?><div class="actions"><button class="btn btn-primary" type="submit">Save announcement notes</button></div><?php endif; ?></fieldset><p class="save-message" role="status"></p></form>
         </section><section class="workspace-section"><h3>Website announcements &amp; upcoming dates</h3><p>Use the existing announcement editor for wording and dates. The team sees current and upcoming announcements on the Service Sheet.</p><?php if(!$archived): ?><div class="actions"><a class="btn btn-primary" href="/php/admin/announcements/new.php">Add church announcement</a><a class="btn btn-secondary" href="/php/admin/announcements/index.php">Manage church announcements</a></div><?php endif; ?>
         <?php foreach(sp_service_announcements($pdo,$service) as $announcement): ?><article class="sheet-announcement"><h4><?=sp_e($announcement['title'])?></h4><p><?=sp_e(sp_announcement_dates($announcement))?></p><div class="reference"><?=sp_e($announcement['body'])?></div></article><?php endforeach; ?></section>
-    <?php elseif($section==='sermon'): ?>
         <?php sp_media_readiness($statuses); ?>
-        <section class="workspace-section"><p class="planner-eyebrow">PASTOR</p><h3>Sermon information</h3><p>Enter the information once. The team reads it on the Service Sheet.</p><a class="guide-link" href="<?=sp_e(sp_page_url($id,'sheet'))?>">View saved Service Sheet →</a><?php sp_badge('sermon',$statuses['sermon']); ?>
+    <?php elseif($section==='sermon'): ?>
+        <section class="workspace-section"><p class="planner-eyebrow">PASTOR</p><div class="editor-heading"><h3>Sermon information</h3><?php sp_badge('sermon',$statuses['sermon']); ?></div><p>Enter the sermon once for the whole team.</p>
         <nav class="planner-section-tabs"><a href="<?=sp_e(sp_page_url($id,'sermon'))?>" aria-current="page">Sermon</a><a href="<?=sp_e(sp_page_url($id,'announcements'))?>">Announcements</a></nav>
         <form method="post" data-planner-form><?php sp_hidden($service,'sermon'); ?><fieldset <?=$archived?'disabled':''?> style="border:0;padding:0;margin:0">
-        <?php foreach(['title'=>'Sermon title','primary_scripture'=>'Primary scripture','additional_scriptures'=>'Additional scriptures','media_notes'=>'Sermon notes needed by Media','special_media'=>'Special media requirements','videos'=>'Videos / existing media links','presentation_instructions'=>'Presentation instructions'] as $key=>$label): ?>
+        <?php foreach(['title'=>'Sermon title','primary_scripture'=>'Primary scripture','additional_scriptures'=>'Additional scriptures'] as $key=>$label): ?>
         <label for="sermon-<?=sp_e($key)?>"><?=sp_e($label)?></label><?php if(in_array($key,['title','primary_scripture'],true)): ?><input id="sermon-<?=sp_e($key)?>" name="<?=sp_e($key)?>" maxlength="1000" value="<?=sp_e($service['sermon'][$key]??'')?>"><?php else: ?><textarea id="sermon-<?=sp_e($key)?>" name="<?=sp_e($key)?>" maxlength="12000"><?=sp_e($service['sermon'][$key]??'')?></textarea><?php endif; ?>
-        <?php endforeach; ?><label><input type="checkbox" name="ready" value="1" <?=$service['sermon_ready']?'checked':''?>> Sermon information ready</label>
-        <?php if(!$archived): ?><div class="actions"><button class="btn" type="submit">Save sermon information</button></div><?php endif; ?></fieldset><p class="save-message" role="status"></p></form></section>
-    <?php elseif($section==='worship'): ?>
+        <?php endforeach; ?>
+        <details class="editor-detail"><summary>Media notes &amp; instructions</summary>
+        <?php foreach(['media_notes'=>'Sermon notes for Media','special_media'=>'Special media requirements','videos'=>'Videos / media links','presentation_instructions'=>'Presentation instructions'] as $key=>$label): ?><label for="sermon-<?=sp_e($key)?>"><?=sp_e($label)?></label><textarea id="sermon-<?=sp_e($key)?>" name="<?=sp_e($key)?>" maxlength="12000" rows="3"><?=sp_e($service['sermon'][$key]??'')?></textarea><?php endforeach; ?>
+        </details>
+        <label class="ready-control"><input type="checkbox" name="ready" value="1" <?=$service['sermon_ready']?'checked':''?>> Sermon information ready</label>
+        <?php if(!$archived): ?><div class="actions"><button class="btn btn-primary" type="submit">Save sermon information</button><a class="guide-link editor-sheet-link" href="<?=sp_e(sp_page_url($id,'sheet'))?>">View Service Sheet →</a></div><?php endif; ?></fieldset><p class="save-message" role="status"></p></form></section>
         <?php sp_media_readiness($statuses); ?>
-        <section class="workspace-section"><p class="planner-eyebrow">MUSIC MINISTER</p><h3>Worship plan</h3><p>Arrange songs in service order. The team reads the saved plan on the Service Sheet.</p><a class="guide-link" href="<?=sp_e(sp_page_url($id,'sheet'))?>">View saved Service Sheet →</a><?php sp_badge('worship',$statuses['worship']); ?>
+    <?php elseif($section==='worship'): ?>
+        <section class="workspace-section"><p class="planner-eyebrow">MUSIC MINISTER</p><div class="editor-heading"><h3>Worship plan</h3><?php sp_badge('worship',$statuses['worship']); ?></div><p>Enter the songs in service order.</p>
         <form method="post" data-planner-form id="worship-form"><?php sp_hidden($service,'worship'); ?><fieldset <?=$archived?'disabled':''?> style="border:0;padding:0;margin:0">
         <div id="songs">
-        <?php foreach($service['worship'] as $i=>$song): ?><div class="song"><div class="song-head"><h4>Song <span class="song-number"><?=$i+1?></span></h4><?php if(!$archived): ?><div class="actions"><button type="button" data-song-action="up" aria-label="Move song up">↑ Up</button><button type="button" data-song-action="down" aria-label="Move song down">↓ Down</button><button type="button" data-song-action="remove">Remove</button></div><?php endif; ?></div>
-        <?php foreach(['title'=>'Song title','key'=>'Key','lead'=>'Lead vocalist','additional'=>'Additional vocalists','notes'=>'Special notes / instruments'] as $key=>$label): ?><label><?=sp_e($label)?><input data-song-field="<?=sp_e($key)?>" name="songs[<?=$i?>][<?=sp_e($key)?>]" value="<?=sp_e($song[$key]??'')?>" maxlength="12000" <?=$key==='title'?'required':''?>></label><?php endforeach; ?></div><?php endforeach; ?>
+        <?php foreach($service['worship'] as $i=>$song)sp_song_editor($song,$i,$archived); ?>
         </div>
-        <?php if(!$archived): ?><div class="actions"><button type="button" id="add-song" class="btn btn-secondary">Add song</button></div><?php endif; ?>
-        <label><input type="checkbox" name="ready" value="1" <?=$service['worship_ready']?'checked':''?>> Worship plan ready</label>
-        <?php if(!$archived): ?><div class="actions"><button class="btn" type="submit">Save worship plan</button></div><?php endif; ?></fieldset><p class="save-message" role="status"></p></form></section>
+        <?php if(!$archived): ?><template id="song-template"><?php sp_song_editor([],0,false); ?></template><div class="actions"><button type="button" id="add-song" class="btn btn-secondary">Add song</button></div><?php endif; ?>
+        <label class="ready-control"><input type="checkbox" name="ready" value="1" <?=$service['worship_ready']?'checked':''?>> Worship plan ready</label>
+        <?php if(!$archived): ?><div class="actions"><button class="btn btn-primary" type="submit">Save worship plan</button><a class="guide-link editor-sheet-link" href="<?=sp_e(sp_page_url($id,'sheet'))?>">View Service Sheet →</a></div><?php endif; ?></fieldset><p class="save-message" role="status"></p></form></section>
+        <?php sp_media_readiness($statuses); ?>
     <?php elseif($section==='media'): ?>
         <?php require __DIR__.'/checklists.php'; ?>
     <?php endif; ?>
 <?php endif; ?>
 </div>
-<script src="/assets/js/service-planner.js?v=2" defer></script>
+<script src="/assets/js/service-planner.js?v=3" defer></script>
 <?php if(!$popout)admin_page_end();else { ?><script src="/assets/js/service-guide.js?v=1" defer></script></main></body></html><?php } ?>

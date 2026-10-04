@@ -57,7 +57,7 @@ if (!str_contains($layout, 'admin_workspace_groups($resourceGroups)')) {
  if ($count !== 1) throw new RuntimeException('Could not integrate admin navigation. No live files changed.');
 }
 if (!str_contains($layout, '/assets/admin-workspace.css')) {
- $layout = str_replace('</head>', '<link rel="stylesheet" href="/assets/admin-workspace.css?v=2">'."\n</head>", $layout);
+ $layout = str_replace('</head>', '<link rel="stylesheet" href="/assets/admin-workspace.css?v=3">'."\n</head>", $layout);
 }
 if (!str_contains($layout, 'admin_workspace_navigation($active)')) {
  $menuLoop = '<?php foreach ($resourceGroups as $group): ?>';
@@ -65,7 +65,9 @@ if (!str_contains($layout, 'admin_workspace_navigation($active)')) {
  $layout = str_replace($menuLoop, '<?php admin_workspace_navigation($active); ?>'."\n".$menuLoop, $layout);
 }
 $layout = str_replace('<a class="resource-link" href="/php/admin/features/index.php">Feature</a>', '', $layout);
-$layout=str_replace('/assets/admin-workspace.css?v=1','/assets/admin-workspace.css?v=2',$layout);
+// Keep overrides after the host stylesheet, and expire cached planner assets.
+$layout=preg_replace('~<link\b[^>]*href="/assets/admin-workspace\.css[^"\s]*"[^>]*>~','',$layout);
+$layout=str_replace('</head>','<link rel="stylesheet" href="/assets/admin-workspace.css?v=3">'."\n</head>",$layout);
 add_write('php/admin/layout.php',$layout);
 $ht=is_file($root.'/.htaccess')?file_get_contents($root.'/.htaccess'):'';
 if (!str_contains($ht,'RewriteRule ^operation-christmas-child')) $ht="<IfModule mod_rewrite.c>\nRewriteEngine On\nRewriteRule ^operation-christmas-child/?$ operation-christmas-child.php [L]\n</IfModule>\n".$ht;

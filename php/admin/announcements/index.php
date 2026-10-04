@@ -32,8 +32,8 @@ admin_page_start($categoryFilter?'Youth Announcements':'Announcements', 'announc
 <section class="card announcement-card-shell">
     <div class="card-header announcement-list-header">
         <div class="announcement-page-head">
-            <h3><?=$categoryFilter?'Youth Announcements':'Manage Announcements'?></h3>
-            <p class="announcement-page-copy"><?=$categoryFilter?'Youth-page announcements. Open all announcements to change the website display order.':'Use the arrows to move announcements up or down. New announcements publish straight to the site, and edits save without any sort-order box.'?></p><?php if($categoryFilter): ?><a class="btn btn-secondary" href="index.php">View all announcements</a><?php endif; ?>
+            <h3><?=$categoryFilter?'Youth Announcements':'Church announcements'?></h3>
+            <p class="announcement-page-copy"><?=$categoryFilter?'Youth-page announcements. Open all announcements to change the website display order.':'Add announcements and dates. Use the arrows to change their order.'?></p><?php if($categoryFilter): ?><a class="btn btn-secondary" href="index.php">View all announcements</a><?php endif; ?>
         </div>
         <a href="new.php<?=$categoryFilter?'?category=youth':''?>" class="btn btn-primary">+ New Announcement</a>
     </div>
@@ -77,10 +77,10 @@ admin_page_start($categoryFilter?'Youth Announcements':'Announcements', 'announc
                                 <strong><?= htmlspecialchars($ann['title']) ?></strong>
                                 <small class="muted announcement-preview"><?= htmlspecialchars($previewText) ?><?= $hasMore ? '…' : '' ?></small>
                             </td>
-                            <td>
+                            <td data-label="Placement">
                                 <span class="announcement-meta-label"><?= htmlspecialchars(ucfirst($ann['category'])) ?></span>
                             </td>
-                            <td>
+                            <td data-label="Schedule">
                                 <small class="announcement-meta-block">
                                     <?php if ($ann['start_date']): ?>
                                         <span>Starts <?= htmlspecialchars((string) $ann['start_date']) ?></span>
@@ -93,12 +93,12 @@ admin_page_start($categoryFilter?'Youth Announcements':'Announcements', 'announc
                                     <?php endif; ?>
                                 </small>
                             </td>
-                            <td>
+                            <td data-label="Status">
                                 <span class="announcement-status <?= $ann['is_published'] ? 'is-live' : 'is-muted' ?>">
                                     <?= $ann['is_published'] ? 'Published' : 'Draft' ?>
                                 </span>
                             </td>
-                            <td>
+                            <td data-label="Move">
                                 <div class="announcement-move-cell">
                                     <form method="POST" action="reorder.php" class="move-form">
                                         <input type="hidden" name="csrf_token" value="<?= csrf_token() ?>">

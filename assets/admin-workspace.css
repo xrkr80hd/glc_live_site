@@ -178,3 +178,111 @@ body.admin-dark:has(.planner-page) .admin-content-head p {display:none}
 .checklist-window .planner-section-tabs{margin:.6rem 0 1rem}
 .checklist-window .planner-service-heading h3{font-size:1.1rem}
 .checklist-window .station-checklist{margin:1rem 0;padding:.9rem}
+
+/* Mobile editors: information first, actions immediately after that item. */
+.workspace .editor-heading{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.6rem;margin-bottom:.5rem}
+.workspace .editor-heading h3{margin:0}
+.workspace .editor-sheet-link{display:inline-flex;align-items:center;min-height:44px;font-size:.9rem;margin-bottom:.4rem}
+.workspace .song{padding:1rem 0;border-top:1px solid var(--admin-border,#526074)}
+.workspace .song-head{display:block;margin-bottom:.6rem}
+.workspace .song-head h4{font-size:1rem;color:var(--admin-text,#e7edf5)}
+.workspace .song label{margin:.6rem 0 0;font-size:.85rem;font-weight:600;line-height:1.5}
+.workspace .song input,.workspace .song textarea{display:block;margin-top:.3rem;min-height:44px}
+.workspace .song-main-fields{display:grid;grid-template-columns:minmax(80px,1fr) minmax(0,2fr);gap:.75rem}
+.workspace .song-extra-fields{margin:.75rem 0 0;padding:0;border:0}
+.workspace .song-extra-fields>summary{cursor:pointer;display:flex;align-items:center;gap:.5rem;min-height:44px;font-size:.85rem;color:var(--admin-muted,#b6c5d7);list-style:none}
+.workspace .song-extra-fields>summary::before{content:'+';font-size:1.2rem;width:16px}
+.workspace .song-extra-fields[open]>summary::before{content:'−'}
+.workspace .song-extra-fields>summary::-webkit-details-marker{display:none}
+.workspace .song-extra-fields textarea{min-height:76px}
+.workspace .song-actions{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.5rem;margin-top:.8rem;padding-top:.6rem;border-top:1px solid var(--admin-border,#526074)}
+.workspace .song-actions .btn{min-width:0;min-height:44px;margin:0;padding:.5rem .6rem;font:inherit;font-size:.85rem;border:1px solid var(--admin-border,#526074);background:var(--admin-surface-alt,#232526);color:var(--admin-text,#e7edf5);box-shadow:none}
+.workspace .song-actions .btn-danger{color:#ffb9b4;border-color:rgba(192,57,43,.45)}
+.workspace .song-actions .btn:disabled{opacity:.4;cursor:default}
+.workspace .song-actions .btn:focus-visible{outline:2px solid var(--admin-accent-strong,#59b48a);outline-offset:2px}
+.workspace .ready-control{display:flex;align-items:center;gap:.7rem;min-height:48px;margin:1rem 0;font-size:.9rem;font-weight:500;cursor:pointer}
+.workspace .ready-control input[type=checkbox]{margin:0;width:24px;height:24px;flex-shrink:0;accent-color:var(--admin-accent-strong,#59b48a)}
+.workspace .editor-detail{margin:.8rem 0;padding:.7rem;border:1px solid var(--admin-border,#526074);border-radius:3px}
+.workspace .editor-detail>summary{display:flex;align-items:center;min-height:44px;cursor:pointer;font-weight:600;font-size:.9rem;gap:.6rem;list-style:none}
+.workspace .editor-detail>summary::before{content:'+';font-size:1.2rem}
+.workspace .editor-detail[open]>summary::before{content:'−'}
+.workspace .editor-detail>summary::-webkit-details-marker{display:none}
+.workspace button:not(.btn){font:inherit;font-size:.9rem;border:1px solid var(--admin-border,#526074);background:var(--admin-surface-alt,#232526);color:var(--admin-text,#e7edf5);box-shadow:none}
+body.admin-dark .admin-shell .album-card{background:var(--admin-surface-alt);border:1px solid var(--admin-border);border-radius:3px;box-shadow:none}
+body.admin-dark .admin-shell .album-summary{color:var(--admin-muted)}
+body.admin-dark .admin-shell .album-cover-empty{background:var(--admin-accent-soft)}
+body.admin-dark .admin-shell .badge,body.admin-dark .admin-shell .announcement-status{border-radius:3px}
+body.admin-dark .admin-shell input[type=file]{box-sizing:border-box;max-width:100%;min-width:0;font-size:.85rem}
+@media(max-width:700px){
+ body.admin-dark .admin-shell .resource-nav-launcher:not(.open){display:none}
+ body.admin-dark .admin-shell .card,body.admin-dark .admin-shell .form-card{box-sizing:border-box;min-width:0;padding:1rem;border-radius:3px}
+ body.admin-dark .admin-shell .card-header{flex-direction:column;align-items:stretch;gap:.65rem;padding:0;margin-bottom:1rem}
+ body.admin-dark .admin-shell .card h2{font-size:1.2rem;line-height:1.4}
+ body.admin-dark .admin-shell .form-group{min-width:0}
+ body.admin-dark .admin-shell .form-group label{font-size:.85rem;line-height:1.5}
+ body.admin-dark .admin-shell .form-actions{display:flex;flex-wrap:wrap;gap:.5rem}
+ body.admin-dark .admin-shell .form-actions>.btn{min-height:44px;flex:1}
+ body.admin-dark .admin-shell .albums-grid,body.admin-dark .admin-shell .media-grid{grid-template-columns:minmax(0,1fr);gap:1rem}
+ body.admin-dark .admin-shell .album-actions{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
+ body.admin-dark .admin-shell .album-actions>a:first-child{grid-column:1/-1}
+ body.admin-dark .admin-shell .album-actions form{display:block!important}
+ body.admin-dark .admin-shell .album-actions .btn{width:100%;min-height:44px}
+ body.admin-dark .admin-shell .card img{max-width:100%;height:auto}
+ .workspace .editor-heading h3{font-size:1.15rem;line-height:1.3}
+ .workspace .editor-heading .status{font-size:.65rem;padding:.25rem .4rem}
+ .workspace label{font-size:.85rem;line-height:1.5;margin:.6rem 0 .3rem}
+ .workspace input:not([type=checkbox]),.workspace textarea,.workspace select{font-size:16px;padding:.6rem;min-height:44px}
+ .workspace textarea{min-height:80px}
+ .workspace .song{padding:.9rem 0}
+ .workspace .song-main-fields{gap:.6rem}
+ .workspace .ready-control{font-size:.9rem}
+ .workspace form .actions>.btn-primary,.workspace form .actions>#add-song{width:100%}
+ .workspace .tool-detail{padding:.6rem;margin:.6rem 0}
+ .workspace .tool-detail>summary{font-size:.95rem;line-height:1.5;min-height:44px}
+ .workspace .tool-detail .btn{display:flex;justify-content:center;margin:.5rem 0;width:100%}
+ .workspace .sheet-readiness-list dt small{font-size:.75rem}
+ body.admin-dark .admin-shell .announcement-table{display:block;width:100%;min-width:0}
+ body.admin-dark .admin-shell .announcement-table thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+ body.admin-dark .admin-shell .announcement-table tbody{display:grid;gap:1rem}
+ body.admin-dark .admin-shell .announcement-table tr{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:.65rem;padding:.8rem 0;border-bottom:1px solid var(--admin-border)}
+ body.admin-dark .admin-shell .announcement-table td{display:block;padding:0;border:0;min-width:0;overflow-wrap:anywhere}
+ body.admin-dark .admin-shell .announcement-table td::before{content:attr(data-label);display:block;font-size:.7rem;font-weight:600;color:var(--admin-muted);margin-bottom:.35rem}
+ body.admin-dark .admin-shell .announcement-table .announcement-title-cell{grid-column:1/-1}
+ body.admin-dark .admin-shell .announcement-table .announcement-title-cell strong{font-size:1rem}
+ body.admin-dark .admin-shell .announcement-table td.actions{display:flex;grid-column:1/-1;gap:.5rem;padding-top:.65rem;border-top:1px solid var(--admin-border)}
+ body.admin-dark .admin-shell .announcement-table td.actions::before{display:none}
+ body.admin-dark .admin-shell .announcement-table td.actions>a,body.admin-dark .admin-shell .announcement-table td.actions>form{flex:1}
+ body.admin-dark .admin-shell .announcement-table td.actions .btn{width:100%;min-height:44px}
+ body.admin-dark .admin-shell .announcement-move-cell{gap:.35rem;justify-content:flex-start}
+ body.admin-dark .admin-shell .announcement-move-cell .move-btn{width:44px;min-height:44px;border-radius:3px}
+}
+/* The first screen explains whose workspace this is and what to do next. */
+body.admin-dark:has(.planner-work-header) .admin-content-head{display:none}
+.planner-page .planner-work-header{display:block;flex-direction:initial;padding:0 0 .8rem;margin:0 0 .4rem;border-bottom:1px solid var(--admin-border,#526074)}
+.planner-page .planner-work-header h2{font-size:1.45rem;line-height:1.35;margin:.25rem 0 .5rem;color:var(--admin-text,#e7edf5)}
+.planner-page .planner-work-header .planner-eyebrow{font-size:.8rem;color:var(--admin-accent-strong,#59b48a);margin:0;letter-spacing:.04em}
+.planner-page .planner-work-header .planner-first-step{font-size:.95rem;line-height:1.6;color:var(--admin-muted,#b6c5d7);margin:0;max-width:50rem}
+.planner-page:has(.planner-work-header) .checklist-controls>h3,
+.planner-page:has(.planner-work-header) .checklist-controls>.planner-eyebrow,
+.planner-page:has(.planner-work-header) .checklist-controls>p{display:none}
+.planner-page .readiness-summary{margin-top:1.2rem}
+@media(max-width:700px){.planner-page .planner-work-header h2{font-size:1.25rem}.planner-page .planner-work-header .planner-first-step{font-size:.9rem}}
+.planner-page .planner-work-header .planner-eyebrow{color:var(--admin-text,#e7edf5);letter-spacing:0;font-weight:600}
+.planner-page:has(.planner-work-header) .workspace-section>.planner-eyebrow,
+.planner-page:has(.planner-work-header) .editor-heading+p{display:none}
+.workspace .song input,.workspace .song textarea{font-weight:400}
+.workspace .actions .editor-sheet-link{margin:0;justify-content:center;font-size:.85rem;min-height:44px}
+@media(max-width:700px){.workspace .actions .editor-sheet-link{width:100%}}
+body.admin-dark .admin-shell .card input:not([type]),body.admin-dark .admin-shell .card input[type=url],body.admin-dark .admin-shell .card input[type=tel]{box-sizing:border-box;width:100%;min-width:0;max-width:100%;min-height:44px;padding:.65rem;border:1px solid var(--admin-border,#526074);border-radius:3px;background:var(--admin-surface-alt,#232526);color:var(--admin-text,#e7edf5);font:inherit;font-size:16px}
+body.admin-dark .admin-shell .card label:has(>input[type=checkbox]){display:flex;align-items:center;gap:.6rem;min-height:44px;cursor:pointer}
+body.admin-dark .admin-shell .card label>input[type=checkbox]{flex-shrink:0;margin:0;width:22px;height:22px;accent-color:var(--admin-accent,#0f6048)}
+body.admin-dark .admin-content:has(.workspace) .admin-content-head p{display:none}
+body.admin-dark .admin-content:has(.announcement-card-shell) .admin-content-head{display:none}
+body.admin-dark .admin-shell .announcement-move-cell .move-btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;border:1px solid var(--admin-border,#526074);background:var(--admin-surface-alt,#232526);color:var(--admin-text,#e7edf5);font:inherit;box-shadow:none;border-radius:3px}
+body.admin-dark .admin-shell .announcement-move-cell .move-btn:disabled{opacity:.4}
+@media(max-width:700px){
+ body.admin-dark .admin-shell .announcement-page-head h3{font-size:1.25rem;line-height:1.35;margin:0}
+ body.admin-dark .admin-shell .announcement-page-copy{font-size:.9rem;line-height:1.5;margin:.5rem 0}
+ body.admin-dark .admin-content:has(.albums-grid) .admin-content-head{display:none}
+ .workspace .planner-section-tabs{margin:.6rem 0 .6rem;padding-bottom:.5rem}
+}

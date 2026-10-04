@@ -93,3 +93,39 @@ function sp_render_worship(array $songs): void { ?>
     <?php endforeach; ?></ol>
     <p data-empty-songs <?=!$songs?'':'hidden'?>>No songs entered yet.</p>
 <?php }
+
+function sp_song_editor(array $song, int $index, bool $archived): void { ?>
+    <div class="song">
+        <div class="song-head"><h4>Song <span class="song-number"><?=$index+1?></span></h4></div>
+        <label class="song-title-field">Song title<input data-song-field="title" name="songs[<?=$index?>][title]" value="<?=sp_e($song['title']??'')?>" maxlength="12000" required></label>
+        <div class="song-main-fields">
+            <label>Key<input data-song-field="key" name="songs[<?=$index?>][key]" value="<?=sp_e($song['key']??'')?>" maxlength="12000" placeholder="e.g. G"></label>
+            <label>Lead vocalist<input data-song-field="lead" name="songs[<?=$index?>][lead]" value="<?=sp_e($song['lead']??'')?>" maxlength="12000"></label>
+        </div>
+        <details class="song-extra-fields">
+            <summary>Additional vocals &amp; notes</summary>
+            <label>Additional vocalists<input data-song-field="additional" name="songs[<?=$index?>][additional]" value="<?=sp_e($song['additional']??'')?>" maxlength="12000"></label>
+            <label>Notes / instruments<textarea data-song-field="notes" name="songs[<?=$index?>][notes]" maxlength="12000" rows="3"><?=sp_e($song['notes']??'')?></textarea></label>
+        </details>
+        <?php if(!$archived): ?><div class="song-actions" role="group" aria-label="Song order controls">
+            <button class="btn btn-secondary" type="button" data-song-action="up" aria-label="Move song up">↑ Up</button>
+            <button class="btn btn-secondary" type="button" data-song-action="down" aria-label="Move song down">↓ Down</button>
+            <button class="btn btn-danger" type="button" data-song-action="remove">Remove</button>
+        </div><?php endif; ?>
+    </div>
+<?php }
+
+function sp_work_intro(string $section, bool $hasSunday, bool $hasStations, bool $archived): void
+{
+    $intro=match($section){
+        'sermon'=>['Pastor','Prepare Sunday’s sermon','Start with the title and scriptures. Add Media instructions if needed, then save.'],
+        'announcements'=>['Pastor','Prepare church announcements','Add the notes and dates Media needs for this Sunday, then save.'],
+        'worship'=>['Music Minister','Build Sunday’s worship plan','Add the songs in order. Set each key and lead vocalist, then save the plan.'],
+        'media'=>['Media Team',$hasStations?'Work through your station checklist':'Choose where you’re working',$hasStations?'Check each task when done. Open Guide whenever you need instructions.':'Select your stations below. You can work on more than one computer.'],
+        default=>null,
+    };
+    if(!$intro)return;
+    if(!$hasSunday)$intro[2]='First, open the Sunday service below. Then complete your section.';
+    if($archived){$intro[1]='Saved Sunday · '.$intro[0];$intro[2]='This Sunday is archived. You can read its saved information and completion state.';}
+    ?><header class="planner-work-header"><p class="planner-eyebrow"><?=sp_e($intro[0])?> workspace</p><h2><?=sp_e($intro[1])?></h2><p class="planner-first-step"><?=sp_e($intro[2])?></p></header><?php
+}
