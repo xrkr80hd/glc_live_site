@@ -2,7 +2,7 @@
 declare(strict_types=1);
 require_once __DIR__ . '/config.php';
 function feature_defaults(): array {
- return ['enabled'=>true,'title'=>'Operation Christmas Child','description'=>'Pack a shoebox. Share the love of Christ. Join Liberty Church in bringing joy and the Good News of Jesus to children through Samaritan’s Purse.','deadline'=>'Sunday, November 15, 2026','video'=>'https://www.youtube.com/watch?v=KOKtonyYIFs','share_image'=>'/assets/operation-christmas-child-share.png','organizers'=>''];
+ return ['enabled'=>true,'title'=>'Operation Christmas Child','description'=>'Pack a shoebox. Share the love of Christ. Join Liberty Church in bringing joy and the Good News of Jesus to children through Samaritan’s Purse.','deadline'=>'Sunday, November 15, 2026','video'=>'https://www.youtube.com/watch?v=KOKtonyYIFs','share_image'=>'/assets/operation-christmas-child-share.png','organizers'=>"Ellen Winegaert | 318-613-6318\nBridget Simmons | 318-792-9597"];
 }
 function feature_schema(PDO $pdo): void {
  $pdo->exec("CREATE TABLE IF NOT EXISTS site_features (slug VARCHAR(100) PRIMARY KEY, settings TEXT NOT NULL)");
