@@ -1,3 +1,11 @@
 .playwright-cli/
 .env
 !.env.example
+
+# Local configuration and machine-specific files
+.env*
+!.env.example
+*.log
+.DS_Store
+._*
+Thumbs.db
